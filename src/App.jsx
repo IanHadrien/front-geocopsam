@@ -1,9 +1,11 @@
+import MyRoutes from "./routes/Index"
+
 function App() {
   return (
     <>
-      <h1 className="bg-black h-screen">Vite + React</h1>
+      <MyRoutes />
     </>
   )
 }
 
-export default App
+export default App;
