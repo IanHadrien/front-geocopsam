@@ -102,7 +102,7 @@ export default function AuthenticatedLayout() {
               </div>
 
 
-              <main className='bg-branco-50 md:pl-12 flex-grow-1 overflow-y-auto'>
+              <main className='bg-branco-50 md:pl-14 flex-grow-1 overflow-y-auto'>
                   <Outlet />
               </main>
           </div>
