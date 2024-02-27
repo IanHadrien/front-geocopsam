@@ -5,11 +5,18 @@ export default {
 		extend: {
 			colors: {
 				verde: {
-					50: "#97c847",
-					100: "#00B37E",
-					200: "#015F43",
-					300: "#0e662d",
-					600: "rgba(0, 179, 126, 0.6)",
+					texture1: "#0D2622",
+					texture2: "#025920",
+					texture3: "#027313",
+					texture4: "#038C0C",
+					texture5: "#52BF04",
+					view1: "#025E73",
+					view2: "#014017",
+					view3: "#6FD904",
+					view4: "#74BF04",
+					view5: "#558C03",
+					view6: "#0DF205",
+					test: '#204648'
 				},
 				cinza: {
 					50: "#F2F2F2",
@@ -53,6 +60,10 @@ export default {
 					50: "#F7F8FA",
 					100: "#EAEDF1",
 				},
+				ds: {
+					verde: '#17171B',
+					verdec: '#C8EA48',
+				}
 			},
 			height: {
 				nulo: "0vh",
