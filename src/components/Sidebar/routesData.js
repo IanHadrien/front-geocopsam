@@ -14,32 +14,26 @@ import { FaTimeline, FaTruckFast, FaTruckFieldUn } from "react-icons/fa6"
 import { GiSteeringWheel } from "react-icons/gi"
 import { HiDocumentReport, HiPlusCircle } from "react-icons/hi"
 import { IoLocationSharp } from "react-icons/io5"
-import { LuLayoutDashboard } from "react-icons/lu"
+import { RxDashboard } from "react-icons/rx";
+import { PiPlant } from "react-icons/pi";
 
 const routesData = {
-	"/map": {
-		route: "/map",
+	"/maps": {
+		route: "/maps",
 		name: "Mapa",
 		icon: FaMapMarkedAlt,
 		permission: 'ViewMaps',
 	},
-	"/timeline": {
-		route: "/timeline",
-		name: "Linha do tempo",
-		icon: FaTimeline,
-		desatived: true,
+	"/dashboard": {
+		route: "/dashboard",
+		name: "Dashboard",
+		icon: RxDashboard,
 		permission: 'ViewMaps',
 	},
-	"/operational-panel": {
-		route: "/operational-panel",
-		name: "Painel Operacional",
-		icon: LuLayoutDashboard,
-		permission: 'ViewMaps',
-	},
-	"/equipments": {
-		route: "/equipments",
-		name: "Equipamentos",
-		icon: FaTruck,
+	"/platations": {
+		route: "/platations",
+		name: "Platações",
+		icon: PiPlant,
 		permission: 'ViewEquipments',
 	},
 	registers: {
