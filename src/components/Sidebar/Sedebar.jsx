@@ -9,30 +9,11 @@ import './style.css';
 export default function SideBar({ showSideBar }) {
     const adminRoutes = [
         '/maps',
-        // '/timeline',
         '/dashboard',
         '/users',
-        // {
-        //     name: 'registers',
-        //     routes: [
-        //         '/users',
-        //         '/equipments',
-        //         '/models',
-        //         '/car-makes',
-        //         '/drivers',
-        //         '/implements',
-        //         // '/supply',
-        //         // '/location',
-        //     ]
-        // },
-        // {
-        //     name: 'reports',
-        //     routes: [
-        //         '/operation',
-        //         '/maintenance',
-        //     ]
-        // },
-        '/platations'
+        '/platations',
+        '/cultivations',
+        '/areas-map',
     ]
     return (
         <div className={`min-h-screen bg-ds-verde ${!showSideBar && 'hidden'} md:block fixed top-0 z-50

@@ -4,18 +4,18 @@ import { BsFillFuelPumpFill } from "react-icons/bs"
 import {
 	FaMapMarkedAlt,
 	FaTractor,
-	FaTruck,
 	FaUsers,
 	FaUser,
 	FaRoute,
 	FaUserTag,
 } from "react-icons/fa"
-import { FaTimeline, FaTruckFast, FaTruckFieldUn } from "react-icons/fa6"
+import { FaTruckFieldUn } from "react-icons/fa6"
 import { GiSteeringWheel } from "react-icons/gi"
 import { HiDocumentReport, HiPlusCircle } from "react-icons/hi"
 import { IoLocationSharp } from "react-icons/io5"
 import { RxDashboard } from "react-icons/rx";
 import { PiPlant } from "react-icons/pi";
+import { FaRegMap } from "react-icons/fa";
 
 const routesData = {
 	"/maps": {
@@ -36,15 +36,21 @@ const routesData = {
 		icon: PiPlant,
 		permission: 'ViewEquipments',
 	},
+	"/areas-map": {
+		route: "/areas-map",
+		name: "Areas mapeadas",
+		icon: FaRegMap,
+		permission: 'ViewEquipments',
+	},
 	registers: {
 		name: "Cadastros",
 		icon: HiPlusCircle,
 		permissions: ['ViewDrivers', 'ViewEquipments', 'ViewModels', 'ViewImplements', 'ViewUsers', 'All'],
 	},
-	"/models": {
-		route: "/models",
-		name: "Modelos",
-		icon: FaTruckFast,
+	"/cultivations": {
+		route: "/cultivations",
+		name: "Cultivos",
+		icon: PiPlant,
 		permission: 'ViewEquipments',
 	},
 	"/implements": {
