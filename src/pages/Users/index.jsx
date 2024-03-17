@@ -56,17 +56,15 @@ export default function Users() {
   const handleInputChange = (e) => setSearch(e.target.value);
 
   const handleEditUser = (dataedit) => {
-    // navigate(`/user/edit/${dataedit.id}`, {
-    //   state: { dataEdit: dataedit }
-    // })
-    console.log(dataedit)
+    navigate(`/users/edit/${dataedit.id}`, {
+      state: { dataEdit: dataedit }
+    })
   };
 
   const handleViewUser = (dataview) => {
-    // navigate(`/user/view/${dataview.id}`, {
-    //   state: { dataView: dataview }
-    // })
-    console.log(dataview)
+    navigate(`/users/view/${dataview.id}`, {
+      state: { dataView: dataview }
+    })
   };
 
   return (

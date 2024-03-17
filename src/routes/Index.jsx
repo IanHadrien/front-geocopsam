@@ -4,6 +4,8 @@ import Maps from "../pages/Maps/Index";
 import AuthenticatedLayout from "../layouts/AuthenticatedLayates";
 import Dashboard from "../pages/Dashboard";
 import Users from "../pages/Users";
+import UserEdit from "../pages/Users/edit";
+import UserView from "../pages/Users/view";
 import Plantations from "../pages/Plantations";
 import Profile from "../pages/Profile";
 import PlantationCreate from "../pages/Plantations/Create";
@@ -16,7 +18,10 @@ export default function MyRoutes() {
         <Route path="/" element={<AuthenticatedLayout />}>
           <Route path="/maps" element={<Maps />} />
           <Route path="/dashboard" element={<Dashboard />} />
+
           <Route path="/users" element={<Users />} />
+          <Route path="/users/edit/:id" element={<UserEdit />} />
+          <Route path="/users/view/:id" element={<UserView />} />
 
           {/* Plantações */}
           <Route path="/plantations" element={<Plantations />} />

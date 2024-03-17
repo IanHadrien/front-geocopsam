@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 
 /* eslint-disable react/prop-types */
-export default function Input({name, label, variant, size, className, value, type, placeholder, error, onChange, disabled, ...props}) {
+export default function Input({name, label, variant, className, value, type, placeholder, error, onChange, disabled, ...props}) {
 
   return (
     <div>
@@ -10,7 +10,6 @@ export default function Input({name, label, variant, size, className, value, typ
         label={label} 
         placeholder={placeholder}
         variant={variant}
-        size={size}
         className={className}
         type={type}
         value={value}
