@@ -11,7 +11,7 @@ export default function SideBar({ showSideBar }) {
         '/maps',
         '/dashboard',
         '/users',
-        '/platations',
+        '/plantations',
         '/cultivations',
         '/areas-map',
     ]

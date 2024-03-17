@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import ActionsColumn from "../../components/Table/ActionsColumn";
 import Table from '../../components/Table/TableReact';
 import { useState } from "react";
+import Input from "../../components/Form/Inputs/Input";
+import { AiOutlineSearch } from 'react-icons/ai';
 
 function ActionsModel(cell, setIsOpenModalEdit, setIsOpenModalDelete, setIsOpenModalView, setData) {
   return <ActionsColumn
@@ -29,6 +31,7 @@ export default function Users() {
 
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [dataUser, setDataUser] = useState(null);
+  const [search, setSearch] = useState('');
   
   const columns = [
     {
@@ -50,16 +53,20 @@ export default function Users() {
     },
   ];
 
+  const handleInputChange = (e) => setSearch(e.target.value);
+
   const handleEditUser = (dataedit) => {
-    navigate('/user-edit', {
-      state: { dataEdit: dataedit }
-    })
+    // navigate(`/user/edit/${dataedit.id}`, {
+    //   state: { dataEdit: dataedit }
+    // })
+    console.log(dataedit)
   };
 
   const handleViewUser = (dataview) => {
-    navigate('/user-view', {
-      state: { dataView: dataview }
-    })
+    // navigate(`/user/view/${dataview.id}`, {
+    //   state: { dataView: dataview }
+    // })
+    console.log(dataview)
   };
 
   return (
@@ -73,17 +80,24 @@ export default function Users() {
       <div>
         <div className="flex flex-1 flex-col space-y-2 lg:flex-row lg:space-x-2 lg:space-y-0">
           <div className="flex flex-1 flex-col text-sm">
-            <input type="text" />
+            <Input 
+              label="Pesquisar usuário"
+              placeholder="Pesquisar por nome, etc"
+              size="small"
+              className="w-full"
+              onChange={handleInputChange}
+              value={search}
+            />
           </div>
 
-          <div className="pt-1">
+          <div>
             <button
               id="search-button"
               type="submit"
-              className="rounded-md flex w-full lg:w-auto justify-center px-2 py-1.5 focus:outline-none bg-azul-700 focus:bg-azul-800 border border-azul-700 text-white hover:opacity-80 transition ease-in-out duration-150"
+              className="rounded-md flex w-full lg:w-auto justify-center px-2 py-1.5 focus:outline-none bg-ds-verde focus:bg-ads-verde border border-ds-verde text-white hover:opacity-80 transition ease-in-out duration-150"
               // onClick={() => setSearchQuery(search)}
             >
-              {/* <AiOutlineSearch size={25} /> */}
+              <AiOutlineSearch size={25} />
             </button>
             {/* <Tooltip text='Pesquisar' anchorSelect="#search-button" /> */}
           </div>

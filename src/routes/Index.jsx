@@ -6,6 +6,7 @@ import Dashboard from "../pages/Dashboard";
 import Users from "../pages/Users";
 import Plantations from "../pages/Plantations";
 import Profile from "../pages/Profile";
+import PlantationCreate from "../pages/Plantations/Create";
 
 export default function MyRoutes() {
   return (
@@ -16,7 +17,10 @@ export default function MyRoutes() {
           <Route path="/maps" element={<Maps />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
-          <Route path="/platations" element={<Plantations />} />
+
+          {/* Plantações */}
+          <Route path="/plantations" element={<Plantations />} />
+          <Route path="/plantations/create" element={<PlantationCreate />} />
 
           <Route path="/profile" element={<Profile />} />
         </Route>

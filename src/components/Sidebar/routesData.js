@@ -30,8 +30,8 @@ const routesData = {
 		icon: RxDashboard,
 		permission: 'ViewMaps',
 	},
-	"/platations": {
-		route: "/platations",
+	"/plantations": {
+		route: "/plantations",
 		name: "Platações",
 		icon: PiPlant,
 		permission: 'ViewEquipments',
