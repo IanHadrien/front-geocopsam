@@ -9,6 +9,10 @@ import UserView from "../pages/Users/view";
 import Plantations from "../pages/Plantations";
 import Profile from "../pages/Profile";
 import PlantationCreate from "../pages/Plantations/Create";
+import Cultivations from "@/pages/Cultivations";
+import CultivationCreate from "@/pages/Cultivations/create";
+import AreasMaps from "@/pages/AreaMaps";
+import AreaMapsCreate from "@/pages/AreaMaps/create";
 
 export default function MyRoutes() {
   return (
@@ -26,6 +30,14 @@ export default function MyRoutes() {
           {/* Plantações */}
           <Route path="/plantations" element={<Plantations />} />
           <Route path="/plantations/create" element={<PlantationCreate />} />
+
+          {/* Cultivos */}
+          <Route path="/cultivations" element={<Cultivations />} />
+          <Route path="/cultivations/create" element={<CultivationCreate />} />
+
+          {/* mapas */}
+          <Route path="/areas-map" element={<AreasMaps />} />
+          <Route path="/areasMap/create" element={<AreaMapsCreate />} />
 
           <Route path="/profile" element={<Profile />} />
         </Route>
