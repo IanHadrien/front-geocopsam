@@ -57,13 +57,13 @@ export default function Login() {
               </Link>
             </div>
 
-            <div>
+            <Link to='/maps'>
               <button 
                 className='border mt-10 p-2 w-full rounded-3xl bg-verde-texture3 transition hover:opacity-80 text-white font-bold'
               >
                 Login
               </button>
-            </div>
+            </Link>
           </form>
         </div>
       </div>
