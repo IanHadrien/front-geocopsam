@@ -14,7 +14,7 @@ const defaultConfig = () => ({
 
 export default function PlantationCreate() {
   const [newPlantation, setNewPlantation] = useState(defaultConfig());
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
 
   const handleInputChange = (e, fieldName) => {
     let value = e?.target?.value ?? e?.value;

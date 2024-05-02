@@ -1,10 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ActionsColumn from "../../components/Table/ActionsColumn";
 import Table from '../../components/Table/TableReact';
 import { useState } from "react";
 import Input from "../../components/Form/Inputs/Input";
 import { AiOutlineSearch } from 'react-icons/ai';
 import RegisterButton from "../../components/Buttons/RegisterButton";
+import { InputWithLabel } from "@/components/ui/InputWithLabel";
+import { HiOutlinePlus } from "react-icons/hi";
 
 function ActionsModel(cell, setIsOpenModalEdit, setIsOpenModalDelete, setIsOpenModalView, setData) {
   return <ActionsColumn
@@ -66,49 +68,49 @@ export default function Cultivations() {
 
   return (
     <div className="w-full h-full md:px-10 sm:px-10 px-8 py-5">
-      {/* {permissionEquipmentAdd && */}
-        <RegisterButton
-          title="Cadastrar" 
-          route="/cultivations/create"
-          showButton
-        />
-      {/* } */}
-      <div>
-        <div className="flex flex-1 flex-col space-y-2 lg:flex-row lg:space-x-2 lg:space-y-0">
-          <div className="flex flex-1 flex-col text-sm">
-            <Input 
-              label="Pesquisar cultivos"
-              placeholder="Pesquisar por nome do cultivo"
-              size="small"
-              className="w-full bg-white"
-              onChange={handleInputChange}
-              value={search}
-            />
-          </div>
+      <div className="flex justify-between">
+        <div className="flex items-center">
+          <InputWithLabel 
+            id="search"
+            name="search"
+            placeholder="Pesquisar cultivos"
+            type="text" 
+            onChange={handleInputChange}
+            value={search}
+            className="mb-0"
+          />
 
-          <div>
-            <button
-              id="search-button"
-              type="submit"
-              className="rounded-md flex w-full lg:w-auto justify-center px-2 py-1.5 focus:outline-none bg-ds-verde focus:bg-ads-verde border border-ds-verde text-white hover:opacity-80 transition ease-in-out duration-150"
-              // onClick={() => setSearchQuery(search)}
-            >
-              <AiOutlineSearch size={25} />
-            </button>
-            {/* <Tooltip text='Pesquisar' anchorSelect="#search-button" /> */}
-          </div>
+          <button
+            id="search-button"
+            type="submit"
+            className="rounded-sm flex w-full lg:w-auto justify-center ml-1 px-2 py-1.5 focus:outline-none bg-verde-texture1 focus:bg-ads-verde border border-verde-texture1 text-white hover:opacity-80 transition ease-in-out duration-150"
+            // onClick={() => setSearchQuery(search)}
+          >
+            <AiOutlineSearch size={25} />
+          </button>
+          {/* <Tooltip text='Pesquisar' anchorSelect="#search-button" /> */}
         </div>
 
-        <Table
-          key="tableSite"
-          columns={columns}
-          data={dataTemp}
-          sort
-          filter
-          pagination
-          // handleSeach={setSearch}
-        />
+        <Link
+          className="rounded-sm flex w-full lg:w-auto justify-center ml-1 px-2 py-1.5 focus:outline-none bg-verde-texture1 focus:bg-ads-verde border border-verde-texture1 text-white hover:opacity-80 transition ease-in-out duration-150"
+          to="/cultivations/create"
+        >
+          <p className="flex items-center">
+            <HiOutlinePlus size={20} />
+            <span className="pl-1">Criar cultivo</span>
+          </p>
+        </Link>
       </div>
+
+      <Table
+        key="tableSite"
+        columns={columns}
+        data={dataTemp}
+        sort
+        filter
+        pagination
+        // handleSeach={setSearch}
+      />
     </div>
   )
 }

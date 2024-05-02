@@ -1,17 +1,38 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react'; // eslint-disable-line
 import Form from './Partials/Form';
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { useMutation } from 'react-query';
+import Cultivations from '@/api/cultivations';
+import { HiOutlinePlus } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const defaultConfig = () => ({
   name: '',
   description: '',
-  probable_harvest_date: '', 
+  probableHarvestDate: '', 
 });
 
 export default function CultivationCreate() {
   const [newCultivation, setNewCultivation] = useState(defaultConfig());
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate()
+
+  const { mutate, isLoading, reset } = useMutation({
+    mutationFn: async (data) => Cultivations.Add(data),
+    onSuccess: (e) => {
+      console.log("Sucess: ", e)
+      // queryClient.refetchQueries(['equipments']);
+      toast.success("Cultivo cadastrado com sucesso.");
+      navigate('/cultivations')
+    },
+    onError: (e) => {
+      console.log("Error: ", e)
+      toast.error("Erro ao cadastrar cultivo.");
+      reset();
+    }
+  });
 
   const handleInputChange = (e, fieldName) => {
     let value = e?.target?.value ?? e?.value;
@@ -26,7 +47,7 @@ export default function CultivationCreate() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submit: ", newCultivation)
-    // mutate(tempObj);
+    mutate(newCultivation);
   };
 
   return (
@@ -35,7 +56,7 @@ export default function CultivationCreate() {
         <div className="flex flex-1 flex-col lg:flex-row lg:space-x-2 lg:space-y-0 h-fit">
           <div className="flex flex-1 flex-col text-sm">
             <div className='flex items-center px-4 pt-2 mb-4'>
-              <IoIosAddCircleOutline size={25} />
+              <HiOutlinePlus size={25} />
               <h2 className='font-medium text-2xl pl-1.5'>
                 Adicionar Cultivo
               </h2>

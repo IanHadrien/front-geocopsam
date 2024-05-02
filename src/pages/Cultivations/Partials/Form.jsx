@@ -19,25 +19,25 @@ export default function Form({ onSubmit, data, handleInputChange, errors, isLoad
           />
 
           <InputWithLabel 
-            id="description"
-            name="description"
-            label="Descrição"
-            placeholder="Descrição"
-            type="text" 
+            id="probableHarvestDate"
+            name="probableHarvestDate"
+            label="Provável data de colheita"
+            placeholder="Provável data de colheita"
+            type="date" 
             onChange={handleInputChange}
-            value={data?.description}
+            value={data?.probableHarvestDate}
+            required
           />
         </div>
 
         <InputWithLabel 
-          id="probable_harvest_date"
-          name="probable_harvest_date"
-          label="Provável data de colheita"
-          placeholder="Provável data de colheita"
-          type="date" 
+          id="description"
+          name="description"
+          label="Descrição"
+          placeholder="Descrição"
+          type="text" 
           onChange={handleInputChange}
-          value={data?.probable_harvest_date}
-          required
+          value={data?.description}
         />
 
         {!viewMode &&
