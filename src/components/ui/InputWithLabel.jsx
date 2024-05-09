@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 // eslint-disable-next-line react/prop-types
-export function InputWithLabel({ className="mb-4", label, id, type, placeholder, onChange, required, ...props }) {
+export function InputWithLabel({ className="mb-4", label, id, type, placeholder, onChange, required, error, ...props }) {
   return (
     <div className={`grid w-full items-center gap-1.5 ${className}`}>
       {label && <Label htmlFor={id}>{label}{required && " *"}</Label>}
@@ -11,8 +11,12 @@ export function InputWithLabel({ className="mb-4", label, id, type, placeholder,
         id={id}
         placeholder={placeholder} 
         onChange={onChange}
+        className={`${error && "border-red-500"}`}
         {...props}
       />
+      <span className="text-red-500 text-xs">
+        {error}
+      </span>
     </div>
   )
 }

@@ -1,16 +1,19 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react'; // eslint-disable-line
 import Form from './Partials/Form';
-import { useMutation } from 'react-query';
-import Cultivations from '@/api/cultivations';
+import { useMutation, useQueryClient } from 'react-query';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import UsersApi from '@/api/users';
 
 const defaultConfig = () => ({
   name: '',
-  description: '',
-  probableHarvestDate: '', 
+  email: '',
+  password: '', 
+  passwordConfirm: '', 
+  phone: '',
+  role: null,
 });
 
 function transformErrors(errors) {
@@ -23,24 +26,26 @@ function transformErrors(errors) {
   return transformedErrors
 }
 
-export default function CultivationCreate() {
-  const [newCultivation, setNewCultivation] = useState(defaultConfig());
-  const [errors, setErrors] = useState({});
+export default function UserCreate() {
+  const [newUser, setNewUser] = useState(defaultConfig());
+  const [errors, setErrors] = useState(null);
+
+  const queryClient = useQueryClient()
 
   const navigate = useNavigate()
 
   const { mutate, isLoading, reset } = useMutation({
-    mutationFn: async (data) => Cultivations.Add(data),
+    mutationFn: async (data) => UsersApi.Add(data),
     onSuccess: (e) => {
       console.log("Sucess: ", e)
-      // queryClient.refetchQueries(['equipments']);
-      toast.success("Cultivo cadastrado com sucesso.");
-      navigate('/cultivations')
+      queryClient.refetchQueries(['UsersAll']);
+      toast.success("Usuário cadastrado com sucesso.");
+      navigate('/users')
     },
     onError: (e) => {
       console.log("Error: ", e)
       setErrors(transformErrors(e?.issues))
-      toast.error("Erro ao cadastrar cultivo.");
+      toast.error("Erro ao cadastrar usuário.");
       reset();
     }
   });
@@ -49,7 +54,7 @@ export default function CultivationCreate() {
     let value = e?.target?.value ?? e?.value;
     const name = e?.target?.name ?? fieldName;
 
-    setNewCultivation((prev) => ({
+    setNewUser((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -57,8 +62,14 @@ export default function CultivationCreate() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submit: ", newCultivation)
-    mutate(newCultivation);
+
+    const tempObj = { ...newUser }
+
+    if (tempObj?.phone === "") {
+      tempObj.phone = undefined;
+    }
+
+    mutate(tempObj);
   };
 
   return (
@@ -69,13 +80,13 @@ export default function CultivationCreate() {
             <div className='flex items-center px-4 pt-2 mb-4'>
               <HiOutlinePlus size={25} />
               <h2 className='font-medium text-2xl pl-1.5'>
-                Adicionar Cultivo
+                Adicionar usuário
               </h2>
             </div>
 
             <Form 
               onSubmit={handleSubmit}
-              data={newCultivation} 
+              data={newUser} 
               handleInputChange={handleInputChange}
               errors={errors}
               isLoading={isLoading}

@@ -17,8 +17,7 @@ const Cultivations = {
       )
       return responseData;
     } catch (error) {
-      console.error("Error: ", error)
-      throw error.response.data.errors;
+      throw error.response.data;
     }
   },
 }

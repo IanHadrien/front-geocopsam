@@ -13,6 +13,7 @@ import Cultivations from "@/pages/Cultivations";
 import CultivationCreate from "@/pages/Cultivations/create";
 import AreasMaps from "@/pages/AreaMaps";
 import AreaMapsCreate from "@/pages/AreaMaps/create";
+import UserCreate from "@/pages/Users/create";
 
 export default function MyRoutes() {
   return (
@@ -24,6 +25,7 @@ export default function MyRoutes() {
           <Route path="/dashboard" element={<Dashboard />} />
 
           <Route path="/users" element={<Users />} />
+          <Route path="/users/create" element={<UserCreate />} />
           <Route path="/users/edit/:id" element={<UserEdit />} />
           <Route path="/users/view/:id" element={<UserView />} />
 

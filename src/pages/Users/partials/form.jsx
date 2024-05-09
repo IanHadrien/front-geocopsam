@@ -1,7 +1,6 @@
 import LoadingClipLoader from '@/components/Loading/LoadingClipLoader';
 import { InputWithLabel } from '@/components/ui/InputWithLabel';
 import PropTypes from 'prop-types';
-// import Input from '../../../components/Form/Inputs/Input';
 
 export default function Form({ onSubmit, data, handleInputChange, errors, isLoading, editMode, viewMode }) {
   return (
@@ -12,7 +11,7 @@ export default function Form({ onSubmit, data, handleInputChange, errors, isLoad
             id="name"
             name="name"
             label="Nome"
-            placeholder="Nome da plantação"
+            placeholder="Nome"
             type="text" 
             onChange={handleInputChange}
             value={data?.name}
@@ -21,27 +20,65 @@ export default function Form({ onSubmit, data, handleInputChange, errors, isLoad
           />
 
           <InputWithLabel 
-            id="probableHarvestDate"
-            name="probableHarvestDate"
-            label="Provável data de colheita"
-            placeholder="Provável data de colheita"
-            type="date" 
+            id="phone"
+            name="phone"
+            label="Telefone"
+            placeholder="Telefone"
+            type="phone" 
             onChange={handleInputChange}
-            value={data?.probableHarvestDate}
-            error={errors && errors?.probableHarvestDate}
+            value={data?.phone}
+            error={errors && errors?.phone}
+          />
+        </div>
+
+        <InputWithLabel 
+          id="email"
+          name="email"
+          label="Email"
+          placeholder="Email"
+          type="email" 
+          onChange={handleInputChange}
+          value={data?.email}
+          error={errors && errors?.email}
+          required
+        />
+
+        <div className="grid md:gap-4 md:grid-cols-2">
+          <InputWithLabel 
+            id="password"
+            name="password"
+            label="Senha"
+            placeholder="Senha"
+            type="password" 
+            onChange={handleInputChange}
+            value={data?.password}
+            error={errors && errors?.password}
+            required
+          />
+
+          <InputWithLabel 
+            id="passwordConfirm"
+            name="passwordConfirm"
+            label="Confirmar senha"
+            placeholder="Confirmar senha"
+            type="password" 
+            onChange={handleInputChange}
+            value={data?.passwordConfirm}
+            error={errors && errors?.passwordConfirm}
             required
           />
         </div>
 
         <InputWithLabel 
-          id="description"
-          name="description"
-          label="Descrição"
-          placeholder="Descrição"
-          type="text" 
+          id="role"
+          name="role"
+          label="Permissão"
+          placeholder="Permissão"
+          type="role" 
           onChange={handleInputChange}
-          value={data?.description}
-          error={errors && errors?.description}
+          value={data?.role}
+          error={errors && errors?.role}
+          required
         />
 
         {!viewMode &&
@@ -52,10 +89,10 @@ export default function Form({ onSubmit, data, handleInputChange, errors, isLoad
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="px-4 py-3 sm:flex">
+        <div className="px-4 py-3 sm:flex items-center">
           {!viewMode &&
             <button
-              className="inline-flex w-full justify-center rounded-md bg-ds-verde px-3 py-2 text-base font-semibold text-white shadow-sm hover:opacity-80 sm:w-56"
+              className="inline-flex w-full justify-center rounded-md bg-ds-verde px-3 py-2 text-base font-semibold text-white shadow-sm hover:opacity-80 sm:w-56 disabled:opacity-75"
               type="submit"
               disabled={isLoading}
             >

@@ -2,9 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ActionsColumn from "../../components/Table/ActionsColumn";
 import Table from '../../components/Table/TableReact';
 import { useState } from "react";
-import Input from "../../components/Form/Inputs/Input";
 import { AiOutlineSearch } from 'react-icons/ai';
-import RegisterButton from "../../components/Buttons/RegisterButton";
 import { InputWithLabel } from "@/components/ui/InputWithLabel";
 import { HiOutlinePlus } from "react-icons/hi";
 
