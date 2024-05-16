@@ -5,6 +5,8 @@ import { useState } from "react";
 import { AiOutlineSearch } from 'react-icons/ai';
 import { InputWithLabel } from "@/components/ui/InputWithLabel";
 import { HiOutlinePlus } from "react-icons/hi";
+import { useQuery } from "react-query";
+import CultivationsApi from "@/api/cultivations";
 
 function ActionsModel(cell, setIsOpenModalEdit, setIsOpenModalDelete, setIsOpenModalView, setData) {
   return <ActionsColumn
@@ -33,27 +35,25 @@ export default function Cultivations() {
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [dataUser, setCultivationUser] = useState(null);
   const [search, setSearch] = useState('');
+
+  const { isLoading, data } = useQuery("CultivationsAll", async () => CultivationsApi.GetAll());
   
   const columns = [
     {
       Header: "Nome",
       accessor: 'name',
     },
-    // {
-    //   Header: "Modelo",
-    //   accessor: 'model.name',
-    // },
     {
       Header: "",
       accessor: 'id',
-      Cell: (cell) => ActionsModel(cell, handleEditUser, setIsOpenModalDelete, handleViewUser, setCultivationUser),
+      Cell: (cell) => ActionsModel(cell, handleEditCultivation, setIsOpenModalDelete, handleViewUser, setCultivationUser),
     },
   ];
 
   const handleInputChange = (e) => setSearch(e.target.value);
 
-  const handleEditUser = (dataedit) => {
-    navigate('/user-edit', {
+  const handleEditCultivation = (dataedit) => {
+    navigate(`/cultivations/edit/${dataedit?.id}`, {
       state: { dataEdit: dataedit }
     })
   };
@@ -64,6 +64,7 @@ export default function Cultivations() {
     })
   };
 
+  if (isLoading === true) return <div>Loading</div>
   return (
     <div className="w-full h-full md:px-10 sm:px-10 px-8 py-5">
       <div className="flex justify-between">
@@ -103,11 +104,10 @@ export default function Cultivations() {
       <Table
         key="tableSite"
         columns={columns}
-        data={dataTemp}
+        data={data?.data?.cultivations}
         sort
         filter
         pagination
-        // handleSeach={setSearch}
       />
     </div>
   )

@@ -29,7 +29,6 @@ export default function Users() {
   // const [search, setSearch] = useState('');
 
   const { isLoading, data } = useQuery("UsersAll", async () => UsersApi.GetAll());
-  console.log("Teste", data)
   
   const columns = [
     {

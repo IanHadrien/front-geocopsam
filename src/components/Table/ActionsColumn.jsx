@@ -7,7 +7,7 @@ import { MdEdit, MdRemoveRedEye } from "react-icons/md";
 const userCan = true;
 // const userCan = (permission) => usePermissions(permission);
 
-export default function ActionsColumn({ cell, setIsOpenModalEdit, setIsOpenModalDelete, setIsOpenModalView, setData, permissionEdit, permissionDelete, permissionView, deleteButton }) {
+export default function ActionsColumn({ cell, setIsOpenModalEdit, setIsOpenModalDelete, setIsOpenModalView, setData, permissionEdit, permissionDelete, permissionView, deleteButton, viewButtonActived }) {
     const { row: { original: data } } = cell;
     return (
         <div className='flex justify-end items-center'>
@@ -34,7 +34,7 @@ export default function ActionsColumn({ cell, setIsOpenModalEdit, setIsOpenModal
                     {/* <Tooltip text='Excluir' anchorSelect={`#deleteBtn-${data.id}`} /> */}
                 </div>
             }
-            {userCan &&
+            {(userCan && viewButtonActived) &&
                 <div>
                     <button id={`viewBtn-${data.id}`} className="rounded-full pt-1 pl-1 hover:bg-gray-100 transition" onClick={() => {
                         setIsOpenModalView(data)
