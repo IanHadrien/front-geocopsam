@@ -11,7 +11,6 @@ import { SearchIcon } from "./Icons/Icons";
 import DebouncedInput from "./DebouncedInput";
 
 const TanStackTable = ({ columns, dataTable }) => {
-  console.log("Dados: ", dataTable)
   const [data] = useState(() => [...dataTable]);
   const [globalFilter, setGlobalFilter] = useState("");
 

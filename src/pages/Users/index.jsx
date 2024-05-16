@@ -1,15 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ActionsColumn from "../../components/Table/ActionsColumn";
-import Table from '../../components/Table/TableReact';
 import { useState } from "react";
-import { AiOutlineSearch } from 'react-icons/ai';
-import { InputWithLabel } from "@/components/ui/InputWithLabel";
-import { HiOutlinePlus } from "react-icons/hi";
 import { useQuery } from "react-query";
 import UsersApi from "@/api/users";
-import TanStackTable from "@/components/Table2/table";
-import { createColumnHelper } from "@tanstack/react-table";
 import RegisterButton from "@/components/Buttons/RegisterButton";
+import Table from "@/components/Table/TableReact";
+import DeleteModal from "./partials/deleteModal";
 
 function ActionsModel(cell, setIsOpenModalEdit, setIsOpenModalDelete, setIsOpenModalView, setData) {
   return <ActionsColumn
@@ -30,25 +26,27 @@ export default function Users() {
 
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [dataUser, setDataUser] = useState(null);
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
 
   const { isLoading, data } = useQuery("UsersAll", async () => UsersApi.GetAll());
+  console.log("Teste", data)
   
-  const columnHelper = createColumnHelper();
   const columns = [
-    columnHelper.accessor("name", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Nome",
-    }),
-    columnHelper.accessor("", {
-      cell: (cell) => ActionsModel(cell, handleEditUser, setIsOpenModalDelete, handleViewUser, setDataUser),
-      header: " ",
-    }),
+    {
+      Header: "Nome",
+      accessor: 'name',
+    },
+    {
+      Header: "",
+      accessor: 'id',
+      Cell: (cell) => ActionsModel(cell, handleEditUser, setIsOpenModalDelete, handleViewUser, setDataUser),
+    }
   ];
 
-  const handleInputChange = (e) => setSearch(e.target.value);
+  // const handleInputChange = (e) => setSearch(e.target.value);
 
   const handleEditUser = (dataedit) => {
+    console.log(dataedit);
     navigate(`/users/edit/${dataedit.id}`, {
       state: { dataEdit: dataedit }
     })
@@ -60,6 +58,11 @@ export default function Users() {
     })
   };
 
+  const handleCloseModalDelete = () => {
+    setIsOpenModalDelete(false);
+  };
+
+  if (isLoading === true) return <div>Loading</div>
   return (
     <div className="w-full h-full md:px-10 sm:px-10 px-8 py-5">
       <RegisterButton
@@ -68,12 +71,20 @@ export default function Users() {
         route={"/users/create"}
       />
 
-      {data?.data?.users && 
-        <TanStackTable 
-          columns={columns}
-          dataTable={data?.data?.users || []}
-        />
-      }
+      <Table
+        key="tableSite"
+        columns={columns}
+        data={data?.data?.users}
+        sort
+        filter
+        pagination
+      />
+
+      <DeleteModal
+        closeModal={handleCloseModalDelete}
+        dataDelete={dataUser}
+        isOpen={isOpenModalDelete}
+      />
     </div>
   )
 }

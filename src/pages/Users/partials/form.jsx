@@ -96,7 +96,7 @@ export default function Form({ onSubmit, data, handleInputChange, errors, isLoad
               type="submit"
               disabled={isLoading}
             >
-              Salvar
+              {editMode ? "Editar" : "Salvar"}
             </button>
           }
 
