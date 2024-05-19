@@ -1,34 +1,34 @@
 /* eslint-disable no-use-before-define */
-import React, { useState } from 'react'; // eslint-disable-line
-import Form from './Partials/Form';
-import { useMutation, useQueryClient } from 'react-query';
-import { HiOutlinePlus } from 'react-icons/hi';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import UsersApi from '@/api/users';
+import { useState } from 'react'
+import Form from './Partials/Form'
+import { useMutation, useQueryClient } from 'react-query'
+import { HiOutlinePlus } from 'react-icons/hi'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import UsersApi from '@/api/users'
 
 const defaultConfig = () => ({
   name: '',
   email: '',
-  password: '', 
-  passwordConfirm: '', 
+  password: '',
+  passwordConfirm: '',
   phone: '',
-  role: null,
-});
+  role: '',
+})
 
 function transformErrors(errors) {
-  const transformedErrors = {};
+  const transformedErrors = {}
   for (const key in errors) {
-      if (key !== "_errors" && errors[key]._errors.length > 0) {
-          transformedErrors[key] = errors[key]._errors[0];
-      }
+    if (key !== '_errors' && errors[key]._errors.length > 0) {
+      transformedErrors[key] = errors[key]._errors[0]
+    }
   }
   return transformedErrors
 }
 
 export default function UserCreate() {
-  const [newUser, setNewUser] = useState(defaultConfig());
-  const [errors, setErrors] = useState(null);
+  const [newUser, setNewUser] = useState(defaultConfig())
+  const [errors, setErrors] = useState(null)
 
   const queryClient = useQueryClient()
 
@@ -36,57 +36,53 @@ export default function UserCreate() {
 
   const { mutate, isLoading, reset } = useMutation({
     mutationFn: async (data) => UsersApi.Add(data),
-    onSuccess: (e) => {
-      console.log("Sucess: ", e)
-      queryClient.refetchQueries(['UsersAll']);
-      toast.success("Usuário cadastrado com sucesso.");
+    onSuccess: () => {
+      queryClient.refetchQueries(['UsersAll'])
+      toast.success('Usuário cadastrado com sucesso.')
       navigate('/users')
     },
     onError: (e) => {
-      console.log("Error: ", e)
       setErrors(transformErrors(e?.issues))
-      toast.error("Erro ao cadastrar usuário.");
-      reset();
-    }
-  });
+      toast.error('Erro ao cadastrar usuário.')
+      reset()
+    },
+  })
 
   const handleInputChange = (e, fieldName) => {
-    let value = e?.target?.value ?? e?.value;
-    const name = e?.target?.name ?? fieldName;
+    let value = e?.target?.value ?? e?.value
+    const name = e?.target?.name ?? fieldName
 
     setNewUser((prev) => ({
       ...prev,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     const tempObj = { ...newUser }
 
-    if (tempObj?.phone === "") {
-      tempObj.phone = undefined;
+    if (tempObj?.phone === '') {
+      tempObj.phone = undefined
     }
 
-    mutate(tempObj);
-  };
+    mutate(tempObj)
+  }
 
   return (
     <div className="w-full md:px-10 sm:px-10 px-8 mb-8 mt-5">
-      <div className='border px-8 pb-4 pt-6 bg-white rounded-md'>
+      <div className="border px-8 pb-4 pt-6 bg-white rounded-md">
         <div className="flex flex-1 flex-col lg:flex-row lg:space-x-2 lg:space-y-0 h-fit">
           <div className="flex flex-1 flex-col text-sm">
-            <div className='flex items-center px-4 pt-2 mb-4'>
+            <div className="flex items-center px-4 pt-2 mb-4">
               <HiOutlinePlus size={25} />
-              <h2 className='font-medium text-2xl pl-1.5'>
-                Adicionar usuário
-              </h2>
+              <h2 className="font-medium text-2xl pl-1.5">Adicionar usuário</h2>
             </div>
 
-            <Form 
+            <Form
               onSubmit={handleSubmit}
-              data={newUser} 
+              data={newUser}
               handleInputChange={handleInputChange}
               errors={errors}
               isLoading={isLoading}

@@ -1,46 +1,46 @@
-import PropTypes from 'prop-types';
-import React from 'react'; // eslint-disable-line
-import { FiAlertTriangle } from 'react-icons/fi';
-import { useMutation, useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router';
-import Modal from '@/components/Modal';
-import UsersApi from '@/api/users';
+import PropTypes from 'prop-types'
+import React from 'react' // eslint-disable-line
+import { FiAlertTriangle } from 'react-icons/fi'
+import { useMutation, useQueryClient } from 'react-query'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router'
+import Modal from '@/components/Modal'
+import UsersApi from '@/api/users'
 
 export default function DeleteModal({ closeModal, dataDelete, isOpen }) {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const { mutate, isLoading, reset } = useMutation({
     mutationFn: async () => UsersApi.Delete(dataDelete),
     onSuccess: () => {
-      queryClient.refetchQueries(['UsersAll']);
-      closeModal();
+      queryClient.refetchQueries(['UsersAll'])
+      closeModal()
       navigate('/users')
-      toast.success("Usuário excluído com sucesso");
-      reset();
+      toast.success('Usuário excluído com sucesso')
+      reset()
     },
     onError: () => {
-      closeModal();
+      closeModal()
 
-      toast.error("Não foi possível excluir o usuário");
-      reset();
-    }
-  });
+      toast.error('Não foi possível excluir o usuário')
+      reset()
+    },
+  })
 
-  const handleDelete = () => mutate();
+  const handleDelete = () => mutate()
 
   return (
     <Modal
-      icon={<FiAlertTriangle size={20} color='red' />}
+      icon={<FiAlertTriangle size={20} color="red" />}
       title="Excluir"
       handleClose={closeModal}
       isOpen={isOpen}
     >
-
-      <div className='my-8 w-full pl-4'>
+      <div className="my-8 w-full pl-4">
         <p className="text-sm text-gray-500">
-          Você tem certeza que deseja excluir o usuário? <span className='font-bold'>{dataDelete?.name}</span>
+          Você tem certeza que deseja excluir o usuário?{' '}
+          <span className="font-bold">{dataDelete?.name}</span>
         </p>
       </div>
 
@@ -53,7 +53,9 @@ export default function DeleteModal({ closeModal, dataDelete, isOpen }) {
         >
           Confirmar
         </button>
-        <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+        <button
+          type="button"
+          className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
           onClick={closeModal}
         >
           Cancelar
@@ -66,11 +68,11 @@ export default function DeleteModal({ closeModal, dataDelete, isOpen }) {
 DeleteModal.defaultProps = {
   closeModal: () => null,
   isOpen: false,
-  dataDelete: {}
-};
+  dataDelete: {},
+}
 
 DeleteModal.propTypes = {
   closeModal: PropTypes.func,
   isOpen: PropTypes.bool,
   dataDelete: PropTypes.object,
-};
+}

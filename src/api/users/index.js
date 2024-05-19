@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from 'axios'
 
 const baseAddress = 'http://localhost:3333'
 const controller = 'users'
@@ -10,14 +10,14 @@ const UsersApi = {
         {
           withCredentials: true,
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
         }
       )
-      return responseData;
+      return responseData
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   },
   Add: async (newUser) => {
@@ -26,14 +26,14 @@ const UsersApi = {
         {
           withCredentials: true,
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
         }
       )
-      return responseData;
+      return responseData
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   },
   Edit: async (editUser) => {
@@ -42,23 +42,23 @@ const UsersApi = {
         {
           withCredentials: true,
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
         }
       )
-      return responseData;
+      return responseData
     } catch (error) {
       console.error(error)
-      throw error.response.data;
+      throw error.response.data
     }
   },
   Delete: async (deleteUser) =>
 		axios.delete(`${baseAddress}/${controller}/${deleteUser.id}`, {
 			withCredentials: true,
 			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
 			},
 		}),
 }
