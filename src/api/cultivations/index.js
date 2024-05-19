@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from 'axios'
 
 const baseAddress = 'http://localhost:3333'
 const controller = 'cultivations'
@@ -10,14 +10,14 @@ const CultivationsApi = {
         {
           withCredentials: true,
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
         }
       )
-      return responseData;
+      return responseData
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   },
   Add: async (newCultivation) => {
@@ -26,16 +26,41 @@ const CultivationsApi = {
         {
           withCredentials: true,
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
         }
       )
-      return responseData;
+      return responseData
     } catch (error) {
-      throw error.response.data;
+      throw error.response.data
     }
   },
+  Edit: async (editCultivation) => {
+    try {
+      const responseData = await axios.put(`${baseAddress}/${controller}/${editCultivation.id}`, editCultivation,
+        {
+          withCredentials: true,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      return responseData
+    } catch (error) {
+      console.error(error)
+      throw error.response.data
+    }
+  },
+  Delete: async (deleteCultivation) =>
+		axios.delete(`${baseAddress}/${controller}/${deleteCultivation.id}`, {
+			withCredentials: true,
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+		}),
 }
 
 export default CultivationsApi

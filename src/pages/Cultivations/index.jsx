@@ -1,79 +1,96 @@
-import { Link, useNavigate } from "react-router-dom";
-import ActionsColumn from "../../components/Table/ActionsColumn";
-import Table from '../../components/Table/TableReact';
-import { useState } from "react";
-import { AiOutlineSearch } from 'react-icons/ai';
-import { InputWithLabel } from "@/components/ui/InputWithLabel";
-import { HiOutlinePlus } from "react-icons/hi";
-import { useQuery } from "react-query";
-import CultivationsApi from "@/api/cultivations";
+import { Link, useNavigate } from 'react-router-dom'
+import ActionsColumn from '../../components/Table/ActionsColumn'
+import Table from '../../components/Table/TableReact'
+import { useState } from 'react'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { InputWithLabel } from '@/components/ui/InputWithLabel'
+import { HiOutlinePlus } from 'react-icons/hi'
+import { PiPlantDuotone } from 'react-icons/pi'
+import { useQuery } from 'react-query'
+import CultivationsApi from '@/api/cultivations'
+import DeleteModal from './Partials/deleteModal'
 
-function ActionsModel(cell, setIsOpenModalEdit, setIsOpenModalDelete, setIsOpenModalView, setData) {
-  return <ActionsColumn
-    cell={cell}
-    setIsOpenModalEdit={setIsOpenModalEdit}
-    setIsOpenModalDelete={setIsOpenModalDelete}
-    setIsOpenModalView={setIsOpenModalView}
-    setData={setData}
-    permissionEdit="CultivationEdit"
-    permissionDelete="CultivationDelete"
-    permissionView="ViewCultivations"
-    deleteButton
-  />;
+function ActionsModel(
+  cell,
+  setIsOpenModalEdit,
+  setIsOpenModalDelete,
+  setIsOpenModalView,
+  setData
+) {
+  return (
+    <ActionsColumn
+      cell={cell}
+      setIsOpenModalEdit={setIsOpenModalEdit}
+      setIsOpenModalDelete={setIsOpenModalDelete}
+      setIsOpenModalView={setIsOpenModalView}
+      setData={setData}
+      permissionEdit="CultivationEdit"
+      permissionDelete="CultivationDelete"
+      permissionView="ViewCultivations"
+      deleteButton
+    />
+  )
 }
 
-const dataTemp = [
-  {
-    id: "1",
-    name: "Cultivo 1",
-  }
-]
-
 export default function Cultivations() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
-  const [dataUser, setCultivationUser] = useState(null);
-  const [search, setSearch] = useState('');
+  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
+  const [dataForm, setForm] = useState(null)
+  const [search, setSearch] = useState('')
 
-  const { isLoading, data } = useQuery("CultivationsAll", async () => CultivationsApi.GetAll());
-  
+  const { isLoading, data } = useQuery('CultivationsAll', async () =>
+    CultivationsApi.GetAll()
+  )
+
   const columns = [
     {
-      Header: "Nome",
+      Header: 'Nome',
       accessor: 'name',
     },
     {
-      Header: "",
+      Header: '',
       accessor: 'id',
-      Cell: (cell) => ActionsModel(cell, handleEditCultivation, setIsOpenModalDelete, handleViewUser, setCultivationUser),
+      Cell: (cell) =>
+        ActionsModel(
+          cell,
+          handleEditCultivation,
+          setIsOpenModalDelete,
+          handleViewUser,
+          setForm
+        ),
     },
-  ];
+  ]
 
-  const handleInputChange = (e) => setSearch(e.target.value);
+  const handleInputChange = (e) => setSearch(e.target.value)
 
   const handleEditCultivation = (dataedit) => {
     navigate(`/cultivations/edit/${dataedit?.id}`, {
-      state: { dataEdit: dataedit }
+      state: { dataEdit: dataedit },
     })
-  };
+  }
 
-  const handleViewUser = (dataview) => {
-    navigate('/user-view', {
-      state: { dataView: dataview }
-    })
-  };
+  const handleViewUser = () => {}
+
+  const handleCloseModalDelete = () => {
+    setIsOpenModalDelete(false)
+  }
 
   if (isLoading === true) return <div>Loading</div>
   return (
     <div className="w-full h-full md:px-10 sm:px-10 px-8 py-5">
+      <div className="flex items-center pb-4 space-x-1">
+        <PiPlantDuotone size={25} />
+        <h2 className="font-medium text-2xl pl-1.5">Cultivos</h2>
+      </div>
+
       <div className="flex justify-between">
         <div className="flex items-center">
-          <InputWithLabel 
+          <InputWithLabel
             id="search"
             name="search"
             placeholder="Pesquisar cultivos"
-            type="text" 
+            type="text"
             onChange={handleInputChange}
             value={search}
             className="mb-0"
@@ -108,6 +125,12 @@ export default function Cultivations() {
         sort
         filter
         pagination
+      />
+
+      <DeleteModal
+        closeModal={handleCloseModalDelete}
+        dataDelete={dataForm}
+        isOpen={isOpenModalDelete}
       />
     </div>
   )

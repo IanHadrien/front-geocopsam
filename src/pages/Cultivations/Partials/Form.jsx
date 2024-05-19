@@ -1,31 +1,39 @@
-import LoadingClipLoader from '@/components/Loading/LoadingClipLoader';
-import { InputWithLabel } from '@/components/ui/InputWithLabel';
-import PropTypes from 'prop-types';
+import LoadingClipLoader from '@/components/Loading/LoadingClipLoader'
+import { InputWithLabel } from '@/components/ui/InputWithLabel'
+import PropTypes from 'prop-types'
 // import Input from '../../../components/Form/Inputs/Input';
 
-export default function Form({ onSubmit, data, handleInputChange, errors, isLoading, editMode, viewMode }) {
+export default function Form({
+  onSubmit,
+  data,
+  handleInputChange,
+  errors,
+  isLoading,
+  editMode,
+  viewMode,
+}) {
   return (
     <form onSubmit={onSubmit}>
-      <div className='px-4 pt-2'>
+      <div className="px-4 pt-2">
         <div className="grid md:gap-4 md:grid-cols-2">
-          <InputWithLabel 
+          <InputWithLabel
             id="name"
             name="name"
             label="Nome"
             placeholder="Nome da plantação"
-            type="text" 
+            type="text"
             onChange={handleInputChange}
             value={data?.name}
             error={errors && errors?.name}
             required
           />
 
-          <InputWithLabel 
+          <InputWithLabel
             id="probableHarvestDate"
             name="probableHarvestDate"
             label="Provável data de colheita"
             placeholder="Provável data de colheita"
-            type="date" 
+            type="date"
             onChange={handleInputChange}
             value={data?.probableHarvestDate}
             error={errors && errors?.probableHarvestDate}
@@ -33,27 +41,27 @@ export default function Form({ onSubmit, data, handleInputChange, errors, isLoad
           />
         </div>
 
-        <InputWithLabel 
+        <InputWithLabel
           id="description"
           name="description"
           label="Descrição"
           placeholder="Descrição"
-          type="text" 
+          type="text"
           onChange={handleInputChange}
           value={data?.description}
           error={errors && errors?.description}
         />
 
-        {!viewMode &&
-          <p className='text-xs font-medium text-gray-500 pb-2 pt-1'>
+        {!viewMode && (
+          <p className="text-xs font-medium text-gray-500 pb-2 pt-1">
             Os campos marcados com * são obrigatórios.
           </p>
-        }
+        )}
       </div>
 
       <div className="flex items-center justify-between">
         <div className="px-4 py-3 sm:flex">
-          {!viewMode &&
+          {!viewMode && (
             <button
               className="inline-flex w-full justify-center rounded-md bg-ds-verde px-3 py-2 text-base font-semibold text-white shadow-sm hover:opacity-80 sm:w-56"
               type="submit"
@@ -61,12 +69,12 @@ export default function Form({ onSubmit, data, handleInputChange, errors, isLoad
             >
               Salvar
             </button>
-          }
+          )}
 
           <LoadingClipLoader
             color="#17171B"
             loading={isLoading}
-            className={`${isLoading && "ml-3"}`}
+            className={`${isLoading && 'ml-3'}`}
           />
         </div>
       </div>
@@ -87,4 +95,4 @@ Form.propTypes = {
   handleClearModule: PropTypes.func,
   isMulti: PropTypes.bool,
   chipNumTemp: PropTypes.string,
-};
+}

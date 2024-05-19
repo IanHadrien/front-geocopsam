@@ -65,7 +65,6 @@ export default function Users() {
   const handleInputChange = (e) => setSearch(e.target.value)
 
   const handleEditUser = (dataedit) => {
-    console.log(dataedit)
     navigate(`/users/edit/${dataedit.id}`, {
       state: { dataEdit: dataedit },
     })
