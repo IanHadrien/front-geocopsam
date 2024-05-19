@@ -15,38 +15,42 @@ export default function Form({ onSubmit, data, handleInputChange, errors, isLoad
           type="text" 
           onChange={handleInputChange}
           value={data?.name}
+          error={errors && errors?.name}
           required
         />
 
         <InputWithLabel 
-          id="geospatial_data"
-          name="geospatial_data"
+          id="geospatialData"
+          name="geospatialData"
           label="Dados geográficos"
           placeholder="Dados geográficos"
           type="text" 
           onChange={handleInputChange}
-          value={data?.geospatial_data}
+          value={data?.geospatialData}
+          error={errors && errors?.geospatialData}
           required
         />
 
         <InputWithLabel 
-          id="certer_pont"
-          name="certer_pont"
+          id="centerPont"
+          name="centerPont"
           label="Ponto central"
           placeholder="Ponto central"
           type="text" 
           onChange={handleInputChange}
-          value={data?.certer_pont}
+          value={data?.centerPont}
+          error={errors && errors?.centerPont}
         />
 
         <InputWithLabel 
-          id="total_area"
-          name="total_area"
+          id="totalArea"
+          name="totalArea"
           label="Área total"
           placeholder="Área total"
           type="text" 
           onChange={handleInputChange}
-          value={data?.total_area}
+          value={data?.totalArea}
+          error={errors && errors?.totalArea}
         />
 
         {!viewMode &&

@@ -2,17 +2,51 @@
 import React, { useState } from 'react'; // eslint-disable-line
 import Form from './Partials/Form';
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { useMutation, useQueryClient } from 'react-query';
+import MappedAreasApi from '@/api/mappedArea';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const defaultConfig = () => ({
   name: '',
-  geospatial_data: '',
-  certer_pont: '',
-  total_area: '',
+  geospatialData: '',
+  centerPont: '',
+  totalArea: '',
+  userId: 'da4addd7-2310-414c-839a-b137dc6041c8',
 });
+
+function transformErrors(errors) {
+  const transformedErrors = {};
+  for (const key in errors) {
+      if (key !== "_errors" && errors[key]._errors.length > 0) {
+          transformedErrors[key] = errors[key]._errors[0];
+      }
+  }
+  return transformedErrors
+}
 
 export default function AreaMapsCreate() {
   const [newAreaMap, setNewAreaMap] = useState(defaultConfig());
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
+
+  const { mutate, isLoading, reset } = useMutation({
+    mutationFn: async (data) => MappedAreasApi.Add(data),
+    onSuccess: (e) => {
+      console.log("Sucess: ", e)
+      queryClient.refetchQueries(['AreasMapsAll']);
+      toast.success("Area cadastrado com sucesso.");
+      navigate('/areas-map')
+    },
+    onError: (e) => {
+      console.log("Error: ", e)
+      setErrors(transformErrors(e?.issues))
+      toast.error("Erro ao cadastrar area.");
+      reset();
+    }
+  });
 
   const handleInputChange = (e, fieldName) => {
     let value = e?.target?.value ?? e?.value;
@@ -27,7 +61,7 @@ export default function AreaMapsCreate() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submit: ", newAreaMap)
-    // mutate(tempObj);
+    mutate(newAreaMap);
   };
 
   return (
@@ -46,8 +80,8 @@ export default function AreaMapsCreate() {
               onSubmit={handleSubmit}
               data={newAreaMap} 
               handleInputChange={handleInputChange}
-              // errors, 
-              // isLoading, 
+              errors={errors}
+              isLoading={isLoading}
             />
           </div>
         </div>

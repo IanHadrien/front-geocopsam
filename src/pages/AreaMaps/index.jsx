@@ -5,6 +5,8 @@ import { useState } from "react";
 import Input from "../../components/Form/Inputs/Input";
 import { AiOutlineSearch } from 'react-icons/ai';
 import RegisterButton from "../../components/Buttons/RegisterButton";
+import { useQuery } from "react-query";
+import MappedAreasApi from "@/api/mappedArea";
 
 function ActionsModel(cell, setIsOpenModalEdit, setIsOpenModalDelete, setIsOpenModalView, setData) {
   return <ActionsColumn
@@ -20,29 +22,20 @@ function ActionsModel(cell, setIsOpenModalEdit, setIsOpenModalDelete, setIsOpenM
   />;
 }
 
-const dataTemp = [
-  {
-    id: "1",
-    name: "Area 1",
-  }
-]
-
 export default function AreasMaps() {
   const navigate = useNavigate();
 
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
   const [dataAreaMap, setAreaMap] = useState(null);
   const [search, setSearch] = useState('');
+
+  const { isLoading, data } = useQuery("AreasMapsAll", async () => MappedAreasApi.GetAll());
   
   const columns = [
     {
       Header: "Nome",
       accessor: 'name',
     },
-    // {
-    //   Header: "Modelo",
-    //   accessor: 'model.name',
-    // },
     {
       Header: "",
       accessor: 'id',
@@ -64,6 +57,7 @@ export default function AreasMaps() {
     })
   };
 
+  if (isLoading === true) return <div>Loading</div>
   return (
     <div className="w-full h-full md:px-10 sm:px-10 px-8 py-5">
       {/* {permissionEquipmentAdd && */}
@@ -102,7 +96,7 @@ export default function AreasMaps() {
         <Table
           key="tableSite"
           columns={columns}
-          data={dataTemp}
+          data={data?.data?.mappedAreas}
           sort
           filter
           pagination
