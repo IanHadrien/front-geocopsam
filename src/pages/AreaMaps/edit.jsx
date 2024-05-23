@@ -4,16 +4,8 @@ import Form from './Partials/Form'
 import { useMutation, useQueryClient } from 'react-query'
 import MappedAreasApi from '@/api/mappedArea'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
-import { HiOutlinePlus } from 'react-icons/hi'
-
-const defaultConfig = () => ({
-  name: '',
-  geospatialData: '',
-  centerPont: '',
-  totalArea: '',
-  userId: '',
-})
+import { useLocation, useNavigate } from 'react-router-dom'
+import { FaRegEdit } from 'react-icons/fa'
 
 function transformErrors(errors) {
   const transformedErrors = {}
@@ -25,23 +17,31 @@ function transformErrors(errors) {
   return transformedErrors
 }
 
-export default function AreaMapsCreate() {
-  const [newAreaMap, setNewAreaMap] = useState(defaultConfig())
-  const [errors, setErrors] = useState({})
-
+export default function AreaMapsEdit() {
+  const location = useLocation()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const { dataEdit } = location.state || {}
+
+  const [editForm, setEditForm] = useState({
+    ...dataEdit,
+    mappedAreaId: dataEdit?.id || '',
+    geospatialData: dataEdit?.geospatial_data || '',
+    centerPont: dataEdit?.center_pont || '',
+    totalArea: dataEdit?.total_area || '',
+  })
+  const [errors, setErrors] = useState({})
 
   const { mutate, isLoading, reset } = useMutation({
-    mutationFn: async (data) => MappedAreasApi.Add(data),
+    mutationFn: async (data) => MappedAreasApi.Edit(data),
     onSuccess: () => {
       queryClient.refetchQueries(['AreasMapsAll'])
-      toast.success('Área cadastrado com sucesso.')
+      toast.success('Área editada com sucesso.')
       navigate('/areas-map')
     },
     onError: (e) => {
       setErrors(transformErrors(e?.issues))
-      toast.error('Erro ao cadastrar área.')
+      toast.error('Erro ao editar área.')
       reset()
     },
   })
@@ -50,7 +50,7 @@ export default function AreaMapsCreate() {
     let value = e?.target?.value ?? e?.value
     const name = e?.target?.name ?? fieldName
 
-    setNewAreaMap((prev) => ({
+    setEditForm((prev) => ({
       ...prev,
       [name]: value,
     }))
@@ -58,7 +58,7 @@ export default function AreaMapsCreate() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    mutate(newAreaMap)
+    mutate(editForm)
   }
 
   return (
@@ -67,15 +67,15 @@ export default function AreaMapsCreate() {
         <div className="flex flex-1 flex-col lg:flex-row lg:space-x-2 lg:space-y-0 h-fit">
           <div className="flex flex-1 flex-col text-sm">
             <div className="flex items-center px-4 pt-2 mb-4">
-              <HiOutlinePlus size={25} />
+              <FaRegEdit size={25} />
               <h2 className="font-medium text-2xl pl-1.5">
-                Adicionar área mapeada
+                Editar área mapeada
               </h2>
             </div>
 
             <Form
               onSubmit={handleSubmit}
-              data={newAreaMap}
+              data={editForm}
               handleInputChange={handleInputChange}
               errors={errors}
               isLoading={isLoading}

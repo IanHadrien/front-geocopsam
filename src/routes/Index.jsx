@@ -1,20 +1,21 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "../pages/Auth/Login";
-import Maps from "../pages/Maps/Index";
-import AuthenticatedLayout from "../layouts/AuthenticatedLayates";
-import Dashboard from "../pages/Dashboard";
-import Users from "../pages/Users";
-import UserEdit from "../pages/Users/edit";
-import UserView from "../pages/Users/view";
-import Plantations from "../pages/Plantations";
-import Profile from "../pages/Profile";
-import PlantationCreate from "../pages/Plantations/Create";
-import Cultivations from "@/pages/Cultivations";
-import CultivationCreate from "@/pages/Cultivations/create";
-import AreasMaps from "@/pages/AreaMaps";
-import AreaMapsCreate from "@/pages/AreaMaps/create";
-import UserCreate from "@/pages/Users/create";
-import CultivationEdit from "@/pages/Cultivations/edit";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Login from '../pages/Auth/Login'
+import Maps from '../pages/Maps/Index'
+import AuthenticatedLayout from '../layouts/AuthenticatedLayates'
+import Dashboard from '../pages/Dashboard'
+import Users from '../pages/Users'
+import UserEdit from '../pages/Users/edit'
+import UserView from '../pages/Users/view'
+import Plantations from '../pages/Plantations'
+import Profile from '../pages/Profile'
+import PlantationCreate from '../pages/Plantations/Create'
+import Cultivations from '@/pages/Cultivations'
+import CultivationCreate from '@/pages/Cultivations/create'
+import AreasMaps from '@/pages/AreaMaps'
+import AreaMapsCreate from '@/pages/AreaMaps/create'
+import UserCreate from '@/pages/Users/create'
+import CultivationEdit from '@/pages/Cultivations/edit'
+import AreaMapsEdit from '@/pages/AreaMaps/edit'
 
 export default function MyRoutes() {
   return (
@@ -41,7 +42,8 @@ export default function MyRoutes() {
 
           {/* mapas */}
           <Route path="/areas-map" element={<AreasMaps />} />
-          <Route path="/areasMap/create" element={<AreaMapsCreate />} />
+          <Route path="/areas-map/create" element={<AreaMapsCreate />} />
+          <Route path="/areas-map/edit/:id" element={<AreaMapsEdit />} />
 
           <Route path="/profile" element={<Profile />} />
         </Route>
