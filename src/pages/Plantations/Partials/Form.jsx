@@ -1,81 +1,127 @@
-import { InputWithLabel } from '@/components/ui/InputWithLabel';
-import { SelectWithLabel } from '@/components/ui/SelectWithLabel';
-import PropTypes from 'prop-types';
+import CultivationsApi from '@/api/cultivations'
+import MappedAreasApi from '@/api/mappedArea'
+import UsersApi from '@/api/users'
+import { InputWithLabel } from '@/components/ui/InputWithLabel'
+import { SelectWithLabel } from '@/components/ui/SelectWithLabel'
+import PropTypes from 'prop-types'
+import { useQuery } from 'react-query'
 // import Input from '../../../components/Form/Inputs/Input';
 
-export default function Form({ onSubmit, data, handleInputChange, errors, isLoading, editMode, viewMode }) {
+export default function Form({
+  onSubmit,
+  data,
+  handleInputChange,
+  errors,
+  isLoading,
+  editMode,
+  viewMode,
+}) {
+  const { isLoading: isLoadingMappedAreas, data: dataMappedAreas } = useQuery({
+    queryKey: ['MappedAreasGetAll'],
+    queryFn: () => MappedAreasApi.GetAll(),
+  })
+  const { isLoading: isLoadingCultivations, data: dataCultivations } = useQuery(
+    {
+      queryKey: ['CultivationsApiGetAll'],
+      queryFn: () => CultivationsApi.GetAll(),
+    }
+  )
+  const { isLoading: isLoadingUsers, data: dataUsers } = useQuery({
+    queryKey: ['UsersGetAll'],
+    queryFn: () => UsersApi.GetAll(),
+  })
+
+  if (
+    isLoadingUsers === true ||
+    isLoadingMappedAreas === true ||
+    isLoadingCultivations === true
+  ) {
+    return <div className="p-4 flex justify-center">Loading...</div>
+  }
   return (
     <form onSubmit={onSubmit}>
-      <div className='px-4 pt-2'>
-        <InputWithLabel 
+      <div className="px-4 pt-2">
+        <InputWithLabel
           id="name"
           name="name"
           label="Nome"
           placeholder="Nome da plantação"
-          type="text" 
+          type="text"
           onChange={handleInputChange}
           value={data?.name}
+          error={errors && errors?.name}
           required
         />
 
-        <SelectWithLabel 
-          label="Associado"
-          id="id_associate"
-          placeholder="Associado" 
-          // onChange
+        <SelectWithLabel
+          label="Proprietário da terra"
+          id="userId"
+          placeholder="Selecione o proprietário"
+          data={dataUsers?.data?.users}
+          value={data?.userId}
+          onChange={(e) => handleInputChange(e, 'userId')}
+          error={errors && errors?.userId}
           required
         />
 
         <div className="grid md:gap-4 md:grid-cols-2">
-          <SelectWithLabel 
+          <SelectWithLabel
             label="Cultivo"
-            id="id_cultivation"
-            placeholder="Cultivo" 
-            // onChange
+            id="cultivationId"
+            placeholder="Selecione o cultivo"
+            data={dataCultivations?.data?.cultivations}
+            value={data?.cultivationId}
+            onChange={(e) => handleInputChange(e, 'cultivationId')}
+            error={errors && errors?.cultivationId}
             required
           />
 
-          <SelectWithLabel 
+          <SelectWithLabel
             label="Área mapeada"
-            id="id_mapArea"
-            placeholder="Área mapeada" 
-            // onChange
+            id="mappedAreaId"
+            placeholder="Selecione a área mapeada"
+            data={dataMappedAreas?.data?.mappedAreas}
+            value={data?.mappedAreaId}
+            onChange={(e) => handleInputChange(e, 'mappedAreaId')}
+            error={errors && errors?.mappedAreaId}
             required
           />
         </div>
 
         <div className="grid md:gap-4 md:grid-cols-2">
-          <InputWithLabel 
-            id="planting_date"
-            name="planting_date"
+          <InputWithLabel
+            id="plantingDate"
+            name="plantingDate"
             label="Data de plantio"
             placeholder="Data de plantio"
-            type="date" 
+            type="date"
             onChange={handleInputChange}
-            value={data?.planting_date}
+            value={data?.plantingDate}
+            error={errors && errors?.plantingDate}
           />
 
-          <InputWithLabel 
-            id="previous_culture"
-            name="previous_culture"
+          <InputWithLabel
+            id="previousCulture"
+            name="previousCulture"
             label="Cultura anterior"
             placeholder="Cultura anterior"
-            type="text" 
+            type="text"
             onChange={handleInputChange}
-            value={data?.previous_culture}
+            value={data?.previousCulture}
+            error={errors && errors?.previousCulture}
           />
         </div>
 
-        {!viewMode &&
-          <p className='text-xs font-medium text-gray-500 pb-2 pt-1'>
+        {!viewMode && (
+          <p className="text-xs font-medium text-gray-500 pb-2 pt-1">
             Os campos marcados com * são obrigatórios.
           </p>
-        }
+        )}
       </div>
 
       <div className="flex items-center justify-between">
         <div className="px-4 py-3 sm:flex">
-          {!viewMode &&
+          {!viewMode && (
             <button
               className="inline-flex w-full justify-center rounded-md bg-ds-verde px-3 py-2 text-base font-semibold text-white shadow-sm hover:opacity-80 sm:w-56"
               type="submit"
@@ -83,7 +129,7 @@ export default function Form({ onSubmit, data, handleInputChange, errors, isLoad
             >
               Salvar
             </button>
-          }
+          )}
 
           {/* <LoadingClipLoader
             color="#155794"
@@ -109,4 +155,4 @@ Form.propTypes = {
   handleClearModule: PropTypes.func,
   isMulti: PropTypes.bool,
   chipNumTemp: PropTypes.string,
-};
+}

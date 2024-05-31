@@ -3,18 +3,9 @@ import React, { useState } from 'react' // eslint-disable-line
 import Form from './Partials/Form'
 import { HiOutlinePlus } from 'react-icons/hi'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useMutation, useQueryClient } from 'react-query'
 import PlantationsApi from '@/api/plantations'
-
-const defaultConfig = () => ({
-  userId: '',
-  cultivationId: '',
-  mappedAreaId: '',
-  name: '',
-  plantingDate: '',
-  previousCulture: '',
-})
 
 function transformErrors(errors) {
   const transformedErrors = {}
@@ -26,23 +17,34 @@ function transformErrors(errors) {
   return transformedErrors
 }
 
-export default function PlantationCreate() {
-  const [newPlantation, setNewPlantation] = useState(defaultConfig())
+export default function PlantationEdit() {
+  const location = useLocation()
+  const { dataEdit } = location.state || {}
+
+  const [newPlantation, setNewPlantation] = useState({
+    ...dataEdit,
+    plantationId: dataEdit?.id,
+    previousCulture: dataEdit?.previous_culture,
+    plantingDate: dataEdit?.planting_date,
+    cultivationId: dataEdit?.cultivationId,
+    mappedAreaId: dataEdit?.mappedAreaId,
+    userId: dataEdit?.userId,
+  })
   const [errors, setErrors] = useState({})
 
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
   const { mutate, isLoading, reset } = useMutation({
-    mutationFn: async (data) => PlantationsApi.Add(data),
+    mutationFn: async (data) => PlantationsApi.Edit(data),
     onSuccess: () => {
       queryClient.refetchQueries(['PlantationGetAll'])
-      toast.success('Plantação cadastrada com sucesso.')
+      toast.success('Plantação editada com sucesso.')
       navigate('/plantations')
     },
     onError: (e) => {
       setErrors(transformErrors(e?.issues))
-      toast.error('Erro ao cadastrar plantação.')
+      toast.error('Erro ao editada plantação.')
       reset()
     },
   })
@@ -69,9 +71,7 @@ export default function PlantationCreate() {
           <div className="flex flex-1 flex-col text-sm">
             <div className="flex items-center px-4 pt-2 mb-4">
               <HiOutlinePlus size={25} />
-              <h2 className="font-medium text-2xl pl-1.5">
-                Adicionar plantação
-              </h2>
+              <h2 className="font-medium text-2xl pl-1.5">Editar plantação</h2>
             </div>
 
             <Form

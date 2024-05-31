@@ -21,9 +21,9 @@ export default function TopBar() {
       <div className="px-2.5 flex items-center pt-1">
         <div className="flex items-center">
           <div className="xl-1038:hidden mr-4">{/* <DropdownMenuUi /> */}</div>
-          <div className="text-ds-verdec">
+          <div className="text-ds-verdec font-bold">
             {/* <img src={Logo} className="w-28 h-8 xl-1920:w-48 xl-1920:h-14" alt="" /> */}
-            GeoCopSam
+            GEOCOPSAM
           </div>
         </div>
 

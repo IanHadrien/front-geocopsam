@@ -8,7 +8,7 @@ import UserEdit from '../pages/Users/edit'
 import UserView from '../pages/Users/view'
 import Plantations from '../pages/Plantations'
 import Profile from '../pages/Profile'
-import PlantationCreate from '../pages/Plantations/Create'
+import PlantationCreate from '../pages/Plantations/create'
 import Cultivations from '@/pages/Cultivations'
 import CultivationCreate from '@/pages/Cultivations/create'
 import AreasMaps from '@/pages/AreaMaps'
@@ -16,6 +16,7 @@ import AreaMapsCreate from '@/pages/AreaMaps/create'
 import UserCreate from '@/pages/Users/create'
 import CultivationEdit from '@/pages/Cultivations/edit'
 import AreaMapsEdit from '@/pages/AreaMaps/edit'
+import PlantationEdit from '@/pages/Plantations/edit'
 
 export default function MyRoutes() {
   return (
@@ -34,6 +35,7 @@ export default function MyRoutes() {
           {/* Plantações */}
           <Route path="/plantations" element={<Plantations />} />
           <Route path="/plantations/create" element={<PlantationCreate />} />
+          <Route path="/plantations/edit/:id" element={<PlantationEdit />} />
 
           {/* Cultivos */}
           <Route path="/cultivations" element={<Cultivations />} />
