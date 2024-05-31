@@ -10,6 +10,7 @@ import { InputWithLabel } from '@/components/ui/InputWithLabel'
 import Tooltip from '@/components/Tooltip/TooltipReact'
 import { HiOutlinePlus } from 'react-icons/hi'
 import DeleteModal from './Partials/deleteModal'
+import Pagination from '@/components/Table/pagination'
 
 function ActionsModel(
   cell,
@@ -39,9 +40,14 @@ export default function AreasMaps() {
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
   const [dataAreaMap, setAreaMap] = useState(null)
   const [search, setSearch] = useState('')
+  const [pagePagination, setPagePagination] = useState(1)
 
-  const { isLoading, data } = useQuery('AreasMapsAll', async () =>
-    MappedAreasApi.GetAll()
+  const { isLoading, data } = useQuery(
+    ['AreasMapsAll', { pagePagination, search }],
+    () => MappedAreasApi.GetAll(pagePagination, search),
+    {
+      keepPreviousData: true,
+    }
   )
 
   const columns = [
@@ -128,6 +134,17 @@ export default function AreasMaps() {
         sort
         filter
         pagination
+      />
+
+      <Pagination
+        from={data.data.from}
+        to={data.data.to}
+        page={data.data.page}
+        pageSize={data.data.pageSize}
+        totalCount={data.data.totalCount}
+        hasNextPage={data.data.hasNextPage}
+        hasPreviousPage={data.data.hasPreviousPage}
+        setPagePagination={setPagePagination}
       />
 
       <DeleteModal

@@ -4,9 +4,9 @@ const baseAddress = 'http://localhost:3333'
 const controller = 'users'
 
 const UsersApi = {
-  GetAll: async () => {
+  GetAll: async (page=1, pageSize=2) => {
     try {
-      const responseData = await axios.get(`${baseAddress}/${controller}`,
+      const responseData = await axios.get(`${baseAddress}/${controller}?page=${page}&pageSize=${pageSize}`,
         {
           withCredentials: true,
           headers: {

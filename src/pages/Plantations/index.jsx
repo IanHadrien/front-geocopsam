@@ -9,6 +9,7 @@ import { PiPlantDuotone } from 'react-icons/pi'
 import { useQuery } from 'react-query'
 import PlantationsApi from '@/api/plantations'
 import DeleteModal from './Partials/deleteModal'
+import Pagination from '@/components/Table/pagination'
 
 function ActionsModel(
   cell,
@@ -38,11 +39,15 @@ export default function Plantations() {
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
   const [dataForm, setDataForm] = useState(null)
   const [search, setSearch] = useState('')
+  const [pagePagination, setPagePagination] = useState(1)
 
-  const { isLoading, data } = useQuery({
-    queryKey: ['PlantationGetAll'],
-    queryFn: () => PlantationsApi.GetAll(),
-  })
+  const { isLoading, data } = useQuery(
+    ['PlantationGetAll', { pagePagination, search }],
+    () => PlantationsApi.GetAll(pagePagination, search),
+    {
+      keepPreviousData: true,
+    }
+  )
 
   const columns = [
     {
@@ -138,6 +143,17 @@ export default function Plantations() {
         sort
         filter
         pagination
+      />
+
+      <Pagination
+        from={data.data.from}
+        to={data.data.to}
+        page={data.data.page}
+        pageSize={data.data.pageSize}
+        totalCount={data.data.totalCount}
+        hasNextPage={data.data.hasNextPage}
+        hasPreviousPage={data.data.hasPreviousPage}
+        setPagePagination={setPagePagination}
       />
 
       <DeleteModal

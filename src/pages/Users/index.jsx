@@ -9,6 +9,7 @@ import { InputWithLabel } from '@/components/ui/InputWithLabel'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { HiOutlinePlus, HiUser } from 'react-icons/hi'
 import Tooltip from '@/components/Tooltip/TooltipReact'
+import Pagination from '@/components/Table/pagination'
 
 function ActionsModel(
   cell,
@@ -38,9 +39,14 @@ export default function Users() {
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
   const [dataUser, setDataUser] = useState(null)
   const [search, setSearch] = useState('')
+  const [pagePagination, setPagePagination] = useState(1)
 
-  const { isLoading, data } = useQuery('UsersAll', async () =>
-    UsersApi.GetAll()
+  const { isLoading, data } = useQuery(
+    ['UsersAll', { pagePagination, search }],
+    () => UsersApi.GetAll(pagePagination, search),
+    {
+      keepPreviousData: true,
+    }
   )
 
   const columns = [
@@ -131,6 +137,17 @@ export default function Users() {
         sort
         filter
         pagination
+      />
+
+      <Pagination
+        from={data.data.from}
+        to={data.data.to}
+        page={data.data.page}
+        pageSize={data.data.pageSize}
+        totalCount={data.data.totalCount}
+        hasNextPage={data.data.hasNextPage}
+        hasPreviousPage={data.data.hasPreviousPage}
+        setPagePagination={setPagePagination}
       />
 
       <DeleteModal
