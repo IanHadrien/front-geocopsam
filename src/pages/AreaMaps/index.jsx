@@ -30,6 +30,7 @@ function ActionsModel(
       permissionDelete="AreaMapDelete"
       permissionView="ViewAreaMaps"
       deleteButton
+      viewButtonActived
     />
   )
 }
@@ -77,7 +78,11 @@ export default function AreasMaps() {
     })
   }
 
-  const handleViewUser = () => {}
+  const handleViewUser = (dataView) => {
+    navigate(`/areas-map/view/${dataView?.id}`, {
+      state: { dataView: dataView },
+    })
+  }
 
   const handleCloseModalDelete = () => {
     setIsOpenModalDelete(false)

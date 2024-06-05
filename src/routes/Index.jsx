@@ -17,6 +17,7 @@ import UserCreate from '@/pages/Users/create'
 import CultivationEdit from '@/pages/Cultivations/edit'
 import AreaMapsEdit from '@/pages/AreaMaps/edit'
 import PlantationEdit from '@/pages/Plantations/edit'
+import AreasMapView from '@/pages/AreaMaps/view'
 
 export default function MyRoutes() {
   return (
@@ -46,6 +47,7 @@ export default function MyRoutes() {
           <Route path="/areas-map" element={<AreasMaps />} />
           <Route path="/areas-map/create" element={<AreaMapsCreate />} />
           <Route path="/areas-map/edit/:id" element={<AreaMapsEdit />} />
+          <Route path="/areas-map/view/:id" element={<AreasMapView />} />
 
           <Route path="/profile" element={<Profile />} />
         </Route>
