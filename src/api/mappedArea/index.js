@@ -4,7 +4,7 @@ const baseAddress = 'http://localhost:3333'
 const controller = 'mapped-area'
 
 const MappedAreasApi = {
-  GetAll: async (page=1, pageSize=2) => {
+  GetAll: async (page=1, pageSize=15) => {
     try {
       const responseData = await axios.get(`${baseAddress}/${controller}?page=${page}&pageSize=${pageSize}`,
         {

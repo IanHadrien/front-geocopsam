@@ -30,6 +30,7 @@ export default function Form({
     queryKey: ['UsersGetAll'],
     queryFn: () => UsersApi.GetAll(),
   })
+  console.log(dataMappedAreas)
 
   if (
     isLoadingUsers === true ||
