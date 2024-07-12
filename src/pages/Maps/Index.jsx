@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   GoogleMap,
   InfoWindow,
@@ -8,9 +8,8 @@ import {
 } from '@react-google-maps/api'
 import key from '../../services/key'
 import { useQuery } from 'react-query'
-import MappedAreasApi from '@/api/mappedArea'
-import MapsApi from '@/api/map'
 import PlantationsApi from '@/api/plantations'
+import InfoWindowComponent from './Partials/infoWindow'
 
 export default function Maps() {
   const { isLoaded } = useJsApiLoader({
@@ -20,17 +19,12 @@ export default function Maps() {
   const mapRef = useRef(null)
 
   const [selectedMarker, setSelectedMarker] = useState('')
-
-  const { isLoading, data } = useQuery({
-    queryKey: ['Maps'],
-    queryFn: () => MapsApi.GetMap(),
-  })
+  const [centerMap, setCenterMap] = useState({})
 
   const { isLoading: loadingPlantations, data: dataPlatations } = useQuery({
     queryKey: ['PlantationMaps'],
     queryFn: () => PlantationsApi.GetAll(),
   })
-  console.log('PlantationMaps: ', dataPlatations)
 
   const containerStyle = {
     width: '100%',
@@ -47,48 +41,66 @@ export default function Maps() {
     return `hsl(${hue % 360}, 100%, 50%)`
   }
 
-  if (isLoading === true || loadingPlantations === true)
-    return <div>Loading</div>
+  useEffect(() => {
+    setCenterMap({ lat: -15.70088214163691, lng: -42.658634835195876 })
+  }, [])
+
+  if (loadingPlantations === true) return <div>Loading</div>
   return (
     <div className="h-93">
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={{ lat: -15.70088214163691, lng: -42.658634835195876 }}
+          center={centerMap}
           zoom={13}
           onLoad={onMapLoad}
           mapTypeId={'satellite'}
         >
           {dataPlatations?.data?.plantations.map((items, index) => (
-            <Polygon
-              key={index}
-              paths={[items?.mapData]}
-              options={{
-                strokeColor: generateColor(index),
-                strokeOpacity: 0.8,
-                strokeWeight: 3,
-                fillColor: generateColor(index),
-                fillOpacity: 0.35,
-              }}
-              // onClick={() => {
-              //   setSelectedMarker(triangleCoords)
-              // }}
-            />
+            <div key={index}>
+              <Polygon
+                paths={[items?.mapFormatted]}
+                options={{
+                  strokeColor: generateColor(index),
+                  strokeOpacity: 0.8,
+                  strokeWeight: 3,
+                  fillColor: generateColor(index),
+                  fillOpacity: 0.35,
+                }}
+              />
+              <Marker
+                position={items?.centerPoint}
+                // options={{
+                //   icon:
+                //     marker.status === 'parked'
+                //       ? Parked
+                //       : marker.status === 'inair'
+                //       ? InAir
+                //       : marker.status === 'incident'
+                //       ? Incident
+                //       : marker.status === 'mission'
+                //       ? Mission
+                //       : marker.status === 'offline'
+                //       ? Offline
+                //       : '',
+                // }}
+                onClick={() => {
+                  setSelectedMarker(items)
+                }}
+              />
+            </div>
           ))}
-          {/* {selectedMarker && (
+          {selectedMarker && (
             <InfoWindow
-              position={selectedMarker.location}
-              options={{
-                pixelOffset: new window.google.maps.Size(0, -40),
-              }}
+              position={selectedMarker?.centerPoint}
+              // options={{
+              //   pixelOffset: new window.google.maps.Size(0, -40),
+              // }}
+              onCloseClick={() => setSelectedMarker(false)}
             >
-              <div>
-                <h1>location -selectedMarker.name</h1>
-                <h1>status - selectedMarker.status</h1>
-                <button onClick={() => setSelectedMarker("")}>close</button>
-              </div>
+              <InfoWindowComponent />
             </InfoWindow>
-          )} */}
+          )}
         </GoogleMap>
       )}
     </div>
