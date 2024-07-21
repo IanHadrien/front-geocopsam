@@ -97,8 +97,9 @@ export default function Maps() {
               //   pixelOffset: new window.google.maps.Size(0, -40),
               // }}
               onCloseClick={() => setSelectedMarker(false)}
+              options={{ disableAutoPan: true }}
             >
-              <InfoWindowComponent />
+              <InfoWindowComponent data={selectedMarker} />
             </InfoWindow>
           )}
         </GoogleMap>
