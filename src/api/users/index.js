@@ -4,6 +4,21 @@ const baseAddress = 'http://localhost:3333'
 const controller = 'users'
 
 const UsersApi = {
+  Login: async (user) => {
+    try {
+      const responseData = await axios.post(`${baseAddress}/login`, user,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      return responseData
+    } catch (error) {
+      throw error.response.data
+    }
+  },
   GetAll: async (page=1, pageSize=2) => {
     try {
       const responseData = await axios.get(`${baseAddress}/${controller}?page=${page}&pageSize=${pageSize}`,

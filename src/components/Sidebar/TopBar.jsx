@@ -13,10 +13,15 @@ import { IoIosArrowDown } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 
 export default function TopBar() {
+  const logout = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
+
   return (
     <div
       id="topbar"
-      className="fixed px-2 top-0 flex w-full items-center justify-between h-[55px] flex-shrink-0 bg-green-950"
+      className="fixed px-2 top-0 flex w-full items-center justify-between h-[55px] flex-shrink-0 bg-green-950 z-50"
     >
       <div className="px-2.5 flex items-center pt-1">
         <div className="flex items-center">
@@ -61,7 +66,7 @@ export default function TopBar() {
                   </MenubarItem>
                   <MenubarSeparator />
                   <MenubarItem
-                    // onClick={() => mutate()}
+                    onClick={logout}
                     className={'px-2 py-1 text-sm w-full cursor-pointer'}
                   >
                     Sair

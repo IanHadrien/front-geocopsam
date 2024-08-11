@@ -18,12 +18,17 @@ import CultivationEdit from '@/pages/Cultivations/edit'
 import AreaMapsEdit from '@/pages/AreaMaps/edit'
 import PlantationEdit from '@/pages/Plantations/edit'
 import AreasMapView from '@/pages/AreaMaps/view'
+import RequireNotAuth from './requireNotAuth'
 
 export default function MyRoutes() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route element={<RequireNotAuth />}>
+          <Route path="forgot-password" element={<Login />} />
+        </Route>
+
         <Route path="/" element={<AuthenticatedLayout />}>
           <Route path="/maps" element={<Maps />} />
           <Route path="/dashboard" element={<Dashboard />} />

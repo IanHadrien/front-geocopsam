@@ -5,6 +5,31 @@ import { IoIosContact } from 'react-icons/io'
 import moment from 'moment/moment'
 
 export default function InfoWindowComponent({ data }) {
+  const calculateProbableHarvestDate = (date, time) => {
+    const regex = /^(\d+)\s*(\w+)/
+    let timeProbable = 0
+
+    if (time.includes('ano') || time.includes('anos')) {
+      timeProbable = Number(time.match(regex)[1])
+
+      const newDate = new Date(date)
+      newDate.setFullYear(newDate.getFullYear() + timeProbable)
+
+      return moment(newDate.toISOString()).format('DD/MM/YYYY')
+    }
+
+    if (time.includes('meses') || time.includes('mes')) {
+      timeProbable = Number(time.match(regex)[1])
+
+      const newDate = new Date(date)
+      const currentMonth = newDate.getMonth()
+      const newMonth = currentMonth + timeProbable
+      newDate.setMonth(newMonth)
+
+      return moment(newDate.toISOString()).format('DD/MM/YYYY')
+    }
+  }
+
   return (
     <div className="space-y-3 px-2 mb-2 -mt-1">
       <header className="">
@@ -42,8 +67,9 @@ export default function InfoWindowComponent({ data }) {
               <p className="font-semibold">
                 Provavel data de colheita:{' '}
                 <span className="font-normal">
-                  {moment(data?.cultivation?.probable_harvest_date).format(
-                    'DD/MM/YYYY'
+                  {calculateProbableHarvestDate(
+                    data?.planting_date,
+                    data?.cultivation?.probable_harvest_date
                   )}
                 </span>
               </p>

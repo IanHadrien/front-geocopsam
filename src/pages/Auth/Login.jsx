@@ -1,18 +1,37 @@
 import React, { useState } from 'react' // eslint-disable-line
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaHome } from 'react-icons/fa'
 import InputAuth from '../../components/Form/Inputs/InputAuth'
 import Logo from '../../components/Logo/Index'
+import { useMutation } from 'react-query'
+import UsersApi from '@/api/users'
+import { toast } from 'react-toastify'
 
 export default function Login() {
+  const navigate = useNavigate()
+
   const [login, setLogin] = useState({
     email: '',
     password: '',
   })
 
+  const { mutate, isLoading } = useMutation({
+    mutationFn: async () => UsersApi.Login(login),
+    onSuccess: (e) => {
+      localStorage.setItem('@GCSAuth:token', e?.data?.token)
+
+      toast.success('Usuário logado com sucesso!')
+      navigate('/maps')
+    },
+    onError: (e) => {
+      // setErrors(transformErrors(e?.issues))
+      toast.error('Falha ao logar!')
+    },
+  })
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Login successful', login)
+    mutate()
   }
 
   return (
@@ -38,6 +57,7 @@ export default function Login() {
                   setLogin({ ...login, email: input.target.value })
                 }
                 showPassword
+                onSubmit={handleSubmit}
                 // error,
                 // disabled
               />
@@ -50,6 +70,7 @@ export default function Login() {
                 onChange={(input) =>
                   setLogin({ ...login, password: input.target.value })
                 }
+                onSubmit={handleSubmit}
                 // error,
                 // disabled
               />
@@ -57,18 +78,21 @@ export default function Login() {
 
             <div className="flex justify-end">
               <Link
-                to="#"
+                to="/forgot-password"
                 className="text-end text-xs py-2 text-gray-400 transition hover:text-gray-600"
               >
                 Forgot password?
               </Link>
             </div>
 
-            <Link to="/maps">
-              <button className="border mt-10 p-2 w-full rounded-3xl bg-verde-texture3 transition hover:opacity-80 text-white font-bold">
-                Login
-              </button>
-            </Link>
+            {/* <Link to="/maps"> */}
+            <button
+              onClick={handleSubmit}
+              className="border mt-10 p-2 w-full rounded-3xl bg-verde-texture3 transition hover:opacity-80 text-white font-bold"
+            >
+              Login
+            </button>
+            {/* </Link> */}
           </form>
         </div>
       </div>

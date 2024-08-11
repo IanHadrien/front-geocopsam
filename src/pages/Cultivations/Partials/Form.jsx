@@ -9,7 +9,7 @@ export default function Form({
   handleInputChange,
   errors,
   isLoading,
-  editMode,
+  // editMode,
   viewMode,
 }) {
   return (
@@ -31,8 +31,8 @@ export default function Form({
           <InputWithLabel
             id="probableHarvestDate"
             name="probableHarvestDate"
-            label="Provável data de colheita"
-            placeholder="Provável data de colheita"
+            label="Tempo até a colheita"
+            placeholder="Tempo até a colheita"
             type="date"
             onChange={handleInputChange}
             value={data?.probableHarvestDate}
