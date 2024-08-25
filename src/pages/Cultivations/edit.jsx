@@ -26,6 +26,7 @@ export default function CultivationEdit() {
   const [editForm, setEditForm] = useState({
     ...dataEdit,
     cultivationId: dataEdit.id,
+    probableHarvestDate: dataEdit?.probable_harvest_date,
   })
   const [errors, setErrors] = useState(null)
 

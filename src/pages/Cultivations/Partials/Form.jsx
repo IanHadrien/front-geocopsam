@@ -12,6 +12,7 @@ export default function Form({
   // editMode,
   viewMode,
 }) {
+  console.log('Form: ', data)
   return (
     <form onSubmit={onSubmit}>
       <div className="px-4 pt-2">
@@ -33,7 +34,7 @@ export default function Form({
             name="probableHarvestDate"
             label="Tempo até a colheita"
             placeholder="Tempo até a colheita"
-            type="date"
+            type="text"
             onChange={handleInputChange}
             value={data?.probableHarvestDate}
             error={errors && errors?.probableHarvestDate}

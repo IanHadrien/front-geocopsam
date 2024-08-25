@@ -52,7 +52,7 @@ export default function Login() {
                 name="email"
                 type="email"
                 value={login.email}
-                placeholder="Enter your email"
+                placeholder="Email"
                 onChange={(input) =>
                   setLogin({ ...login, email: input.target.value })
                 }
@@ -66,7 +66,7 @@ export default function Login() {
                 name="password"
                 type="password"
                 value={login.password}
-                placeholder="Enter your password"
+                placeholder="Senha"
                 onChange={(input) =>
                   setLogin({ ...login, password: input.target.value })
                 }
@@ -81,7 +81,7 @@ export default function Login() {
                 to="/forgot-password"
                 className="text-end text-xs py-2 text-gray-400 transition hover:text-gray-600"
               >
-                Forgot password?
+                Esqueçeu a senha?
               </Link>
             </div>
 
@@ -90,7 +90,7 @@ export default function Login() {
               onClick={handleSubmit}
               className="border mt-10 p-2 w-full rounded-3xl bg-verde-texture3 transition hover:opacity-80 text-white font-bold"
             >
-              Login
+              Acessar
             </button>
             {/* </Link> */}
           </form>

@@ -33,6 +33,10 @@ function ActionsModel(
   )
 }
 
+function FormateRole(cell) {
+  return cell?.value
+}
+
 export default function Users() {
   const navigate = useNavigate()
 
@@ -49,10 +53,17 @@ export default function Users() {
     }
   )
 
+  console.log('Dados: ', data)
+
   const columns = [
     {
       Header: 'Nome',
       accessor: 'name',
+    },
+    {
+      Header: 'Tipo',
+      accessor: 'role',
+      Cell: (cell) => FormateRole(cell),
     },
     {
       Header: '',
@@ -99,7 +110,7 @@ export default function Users() {
           <InputWithLabel
             id="search"
             name="search"
-            placeholder="Pesquisar plantação"
+            placeholder="Pesquisar usuário"
             type="text"
             onChange={handleInputChange}
             value={search}

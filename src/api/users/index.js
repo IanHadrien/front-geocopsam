@@ -19,7 +19,7 @@ const UsersApi = {
       throw error.response.data
     }
   },
-  GetAll: async (page=1, pageSize=2) => {
+  GetAll: async (page=1, pageSize) => {
     try {
       const responseData = await axios.get(`${baseAddress}/${controller}?page=${page}&pageSize=${pageSize}`,
         {

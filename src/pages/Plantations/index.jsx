@@ -10,6 +10,7 @@ import { useQuery } from 'react-query'
 import PlantationsApi from '@/api/plantations'
 import DeleteModal from './Partials/deleteModal'
 import Pagination from '@/components/Table/pagination'
+import moment from 'moment/moment'
 
 function ActionsModel(
   cell,
@@ -31,6 +32,10 @@ function ActionsModel(
       deleteButton
     />
   )
+}
+
+function FormateDate(cell) {
+  return moment(cell?.value).format('DD/MM/YYYY')
 }
 
 export default function Plantations() {
@@ -65,6 +70,7 @@ export default function Plantations() {
     {
       Header: 'Data',
       accessor: 'planting_date',
+      Cell: (cell) => FormateDate(cell),
     },
     {
       Header: '',
