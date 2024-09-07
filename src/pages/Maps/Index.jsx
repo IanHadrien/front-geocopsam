@@ -61,10 +61,10 @@ export default function Maps() {
               <Polygon
                 paths={[items?.mapFormatted]}
                 options={{
-                  strokeColor: generateColor(index),
+                  strokeColor: items?.cultivation?.color,
                   strokeOpacity: 0.8,
                   strokeWeight: 3,
-                  fillColor: generateColor(index),
+                  fillColor: items?.cultivation?.color,
                   fillOpacity: 0.35,
                 }}
               />

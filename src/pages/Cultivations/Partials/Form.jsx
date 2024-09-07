@@ -12,7 +12,6 @@ export default function Form({
   // editMode,
   viewMode,
 }) {
-  console.log('Form: ', data)
   return (
     <form onSubmit={onSubmit}>
       <div className="px-4 pt-2">
@@ -41,6 +40,17 @@ export default function Form({
             required
           />
         </div>
+
+        <InputWithLabel
+          id="color"
+          name="color"
+          label="Cor de identificação da plantação"
+          placeholder="Cor de identificação da plantação"
+          type="text"
+          onChange={handleInputChange}
+          value={data?.color}
+          error={errors && errors?.color}
+        />
 
         <InputWithLabel
           id="description"
