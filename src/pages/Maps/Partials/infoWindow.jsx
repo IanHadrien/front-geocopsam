@@ -65,7 +65,7 @@ export default function InfoWindowComponent({ data }) {
                 </span>
               </p>
               <p className="font-semibold">
-                Provavel data de colheita:{' '}
+                Provável data de colheita:{' '}
                 <span className="font-normal">
                   {calculateProbableHarvestDate(
                     data?.planting_date,
@@ -87,14 +87,14 @@ export default function InfoWindowComponent({ data }) {
           <div className="flex justify-between space-x-6">
             <div className="space-y-1">
               <p className="font-semibold">
-                Propreitario:{' '}
+                Proprietário:{' '}
                 <span className="font-normal">{data?.user?.name}</span>
               </p>
             </div>
 
             <div className="space-y-1">
               <p className="font-semibold">
-                Area total:{' '}
+                Área total:{' '}
                 <span className="font-normal">
                   {data?.mappedArea?.total_area
                     ? data?.mappedArea.total_area

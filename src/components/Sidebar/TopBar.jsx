@@ -1,4 +1,3 @@
-import { FaExpandArrowsAlt } from 'react-icons/fa'
 import MenuBar from './MenuBar'
 import {
   Menubar,
@@ -42,10 +41,7 @@ export default function TopBar() {
           <button
             className="text-white md:hover:text-gray-200 hidden sm:block"
             // onClick={() => handleToggleFullScreen()}
-          >
-            <FaExpandArrowsAlt id="expand-icon" />
-            {/* <Tooltip text="Alterar modo" anchorSelect="#expand-icon" /> */}
-          </button>
+          ></button>
           <div className="relative z-50">
             <Menubar className="border-none py-6 shadow-none bg-verde-texture1">
               <MenubarMenu>
@@ -60,14 +56,14 @@ export default function TopBar() {
                 </MenubarTrigger>
                 <MenubarContent>
                   <MenubarItem>
-                    <Link to="/perfil" className={'p-2 text-sm w-full'}>
+                    <Link to="/profile" className={'p-2 text-sm w-full'}>
                       Meu perfil
                     </Link>
                   </MenubarItem>
                   <MenubarSeparator />
                   <MenubarItem
                     onClick={logout}
-                    className={'px-2 py-1 text-sm w-full cursor-pointer'}
+                    className={'px-4 py-1 text-sm w-full cursor-pointer'}
                   >
                     Sair
                   </MenubarItem>
