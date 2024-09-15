@@ -48,7 +48,7 @@ export default function Plantations() {
 
   const { isLoading, data } = useQuery(
     ['PlantationGetAll', { pagePagination, search }],
-    () => PlantationsApi.GetAll(pagePagination, search),
+    () => PlantationsApi.GetAll(pagePagination, 10),
     {
       keepPreviousData: true,
     }
