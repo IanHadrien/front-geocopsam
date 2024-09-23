@@ -10,6 +10,7 @@ import key from '../../services/key'
 import { useQuery } from 'react-query'
 import PlantationsApi from '@/api/plantations'
 import InfoWindowComponent from './Partials/infoWindow'
+import FilterMap from './Partials/filterMap'
 
 export default function Maps() {
   const { isLoaded } = useJsApiLoader({
@@ -19,12 +20,17 @@ export default function Maps() {
   const mapRef = useRef(null)
 
   const [selectedMarker, setSelectedMarker] = useState('')
+  const [userId, setUserId] = useState('')
+  const [cultivationId, setCultivationId] = useState('')
   const [centerMap, setCenterMap] = useState({})
 
-  const { isLoading: loadingPlantations, data: dataPlatations } = useQuery({
-    queryKey: ['PlantationMaps'],
-    queryFn: () => PlantationsApi.GetAll(),
-  })
+  const { isLoading: loadingPlantations, data: dataPlatations } = useQuery(
+    ['PlantationMaps', { userId, cultivationId }],
+    () => PlantationsApi.GetAllMapFilter(userId, cultivationId),
+    {
+      keepPreviousData: true,
+    }
+  )
 
   const containerStyle = {
     width: '100%',
@@ -45,9 +51,19 @@ export default function Maps() {
     setCenterMap({ lat: -15.70088214163691, lng: -42.658634835195876 })
   }, [])
 
+  const handleFilter = (filter) => {
+    setCultivationId(filter?.cultivationId)
+    setUserId(filter?.userId)
+  }
+
+  const resetFilter = () => {
+    setCultivationId('')
+    setUserId('')
+  }
+
   if (loadingPlantations === true) return <div>Loading</div>
   return (
-    <div className="h-93">
+    <div className="h-93 relative">
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -104,6 +120,8 @@ export default function Maps() {
           )}
         </GoogleMap>
       )}
+
+      <FilterMap handleFilter={handleFilter} resetFilter={resetFilter} />
     </div>
   )
 }

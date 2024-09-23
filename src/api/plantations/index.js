@@ -20,6 +20,22 @@ const PlantationsApi = {
       throw error.response.data
     }
   },
+  GetAllMapFilter: async (userId, cultivationId) => {
+    try {
+      const responseData = await axios.get(`${baseAddress}/${controller}?userId=${userId}&cultivationId=${cultivationId}`,
+        {
+          withCredentials: true,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      return responseData
+    } catch (error) {
+      throw error.response.data
+    }
+  },
   Add: async (newPlantation) => {
     try {
       const responseData = await axios.post(`${baseAddress}/${controller}`, newPlantation,
