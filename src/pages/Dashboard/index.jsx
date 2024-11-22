@@ -39,7 +39,7 @@ export default function Dashboard() {
                 <h2 className="text-xs text-gray-300 font-medium">
                   Plantações
                 </h2>
-                <p className="text-2xl text-white">68 Plantações</p>
+                <p className="text-2xl text-white">88 Plantações</p>
               </div>
             </div>
           </div>
@@ -78,10 +78,10 @@ export default function Dashboard() {
                   >
                     <div>
                       <div className="text-sm font-semibold">Plantação 19</div>
-                      <div className="font-normal text-gray-500">Abóbora</div>
+                      <div className="font-normal text-gray-500">Mandioca</div>
                     </div>
                   </th>
-                  <td className="px-6 py-4">07/11/2024</td>
+                  <td className="px-6 py-4">07/12/2024</td>
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       <span className="text-xs px-3 py-0.5 rounded-md bg-green-500 text-white font-medium">
@@ -100,7 +100,7 @@ export default function Dashboard() {
                       <div className="font-normal text-gray-500">Arroz</div>
                     </div>
                   </th>
-                  <td className="px-6 py-4">06/29/2024</td>
+                  <td className="px-6 py-4">26/11/2024</td>
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       <span className="text-xs px-3 py-0.5 rounded-md bg-green-500 text-white font-medium">
@@ -138,7 +138,7 @@ export default function Dashboard() {
                       <div className="font-normal text-gray-500">Mandioca</div>
                     </div>
                   </th>
-                  <td className="px-6 py-4">07/20/2024</td>
+                  <td className="px-6 py-4">03/12/2024</td>
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       <span className="text-xs px-3 py-0.5 rounded-md bg-green-500 text-white font-medium">

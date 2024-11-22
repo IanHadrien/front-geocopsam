@@ -100,16 +100,16 @@ const ChartComponent = () => {
 
     // Set data
     const data = [
-      { country: 'Mandioca', value: 20, fill: '#fcf91e' },
-      { country: 'Feijão', value: 14, fill: '#DE6C28' },
-      { country: 'Banana', value: 17, fill: '#CCDE28' },
-      { country: 'Abóbora', value: 20, fill: '#fa822d' },
-      { country: 'Arroz', value: 1, fill: '#D4E0BA' },
-      { country: 'Laranja', value: 15, fill: '#E14618' },
-      { country: 'Eucalipto', value: 20, fill: '#26ff1f' },
-      { country: 'Capim', value: 6, fill: '#0D2BEC' },
-      { country: 'Tomate', value: 7, fill: '#28A8DE' },
-      { country: 'Cana-de-açúcar', value: 8, fill: '#9BE032' },
+      { country: 'Mandioca', value: 36, fill: '#fcf91e' },
+      { country: 'Feijão', value: 6, fill: '#DE6C28' },
+      { country: 'Banana', value: 3, fill: '#CCDE28' },
+      { country: 'Abóbora', value: 4, fill: '#fa822d' },
+      { country: 'Arroz', value: 6, fill: '#D4E0BA' },
+      { country: 'Laranja', value: 2, fill: '#E14618' },
+      { country: 'Eucalipto', value: 21, fill: '#26ff1f' },
+      { country: 'Capim', value: 9, fill: '#0D2BEC' },
+      { country: 'Tomate', value: 1, fill: '#28A8DE' },
+      { country: 'Cana-de-açúcar', value: 1, fill: '#9BE032' },
     ]
 
     xAxis.data.setAll(data)

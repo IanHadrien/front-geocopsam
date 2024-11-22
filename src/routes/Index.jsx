@@ -19,6 +19,8 @@ import AreaMapsEdit from '@/pages/AreaMaps/edit'
 import PlantationEdit from '@/pages/Plantations/edit'
 import AreasMapView from '@/pages/AreaMaps/view'
 import RequireNotAuth from './requireNotAuth'
+import ForgotPassword from '@/pages/Auth/ForgotPassword'
+import NewPassword from '@/pages/Auth/NewPassword'
 
 export default function MyRoutes() {
   return (
@@ -26,7 +28,8 @@ export default function MyRoutes() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route element={<RequireNotAuth />}>
-          <Route path="forgot-password" element={<Login />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="new-password" element={<NewPassword />} />
         </Route>
 
         <Route path="/" element={<AuthenticatedLayout />}>
