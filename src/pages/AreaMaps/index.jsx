@@ -45,7 +45,7 @@ export default function AreasMaps() {
 
   const { isLoading, data } = useQuery(
     ['AreasMapsAll', { pagePagination, search }],
-    () => MappedAreasApi.GetAll(pagePagination, search),
+    () => MappedAreasApi.GetAll(pagePagination, 15),
     {
       keepPreviousData: true,
     }

@@ -9,7 +9,7 @@ export default function Form({
   handleInputChange,
   errors,
   isLoading,
-  editMode,
+  // editMode,
   viewMode,
 }) {
   return (
@@ -31,15 +31,26 @@ export default function Form({
           <InputWithLabel
             id="probableHarvestDate"
             name="probableHarvestDate"
-            label="Provável data de colheita"
-            placeholder="Provável data de colheita"
-            type="date"
+            label="Tempo até a colheita"
+            placeholder="Tempo até a colheita"
+            type="text"
             onChange={handleInputChange}
             value={data?.probableHarvestDate}
             error={errors && errors?.probableHarvestDate}
             required
           />
         </div>
+
+        <InputWithLabel
+          id="color"
+          name="color"
+          label="Cor de identificação da plantação"
+          placeholder="Cor de identificação da plantação"
+          type="text"
+          onChange={handleInputChange}
+          value={data?.color}
+          error={errors && errors?.color}
+        />
 
         <InputWithLabel
           id="description"

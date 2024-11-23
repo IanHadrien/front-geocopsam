@@ -4,7 +4,38 @@ const baseAddress = 'http://localhost:3333'
 const controller = 'users'
 
 const UsersApi = {
-  GetAll: async (page=1, pageSize=2) => {
+  Login: async (user) => {
+    try {
+      const responseData = await axios.post(`${baseAddress}/login`, user,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      return responseData
+    } catch (error) {
+      throw error.response.data
+    }
+  },
+  GetMe: async () => {
+    try {
+      const responseData = await axios.get(`${baseAddress}/me`,
+        {
+          withCredentials: true,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      return responseData
+    } catch (error) {
+      throw error.response.data
+    }
+  },
+  GetAll: async (page=1, pageSize) => {
     try {
       const responseData = await axios.get(`${baseAddress}/${controller}?page=${page}&pageSize=${pageSize}`,
         {

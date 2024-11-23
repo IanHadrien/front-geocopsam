@@ -7,7 +7,7 @@ import { useMutation } from 'react-query'
 import UsersApi from '@/api/users'
 import { toast } from 'react-toastify'
 
-export default function Login() {
+export default function ForgotPassword() {
   const navigate = useNavigate()
 
   const [login, setLogin] = useState({
@@ -39,11 +39,11 @@ export default function Login() {
       <div className="flex h-screen items-center p-10 px-28 bg-white border w-full lg:w-1/2">
         <div className="w-full lg:max-w-2xl">
           <div className="text-center py-4">
-            <div className="flex justify-center">
-              <FaHome size={45} />
-            </div>
-            <p className="text-4xl font-bold">GEOCOPSAM</p>
-            {/* <p className='text-sm'>Plase enter your details.</p> */}
+            <p className="text-4xl font-bold">Esqueci minha senha</p>
+            <p className="text-sm mt-4">
+              Por favor, informe seu endereço de e-mail para que possamos enviar
+              o link de redefinição de senha.
+            </p>
           </div>
 
           <form className="mt-10" onClick={handleSubmit}>
@@ -61,28 +61,6 @@ export default function Login() {
                 // error,
                 // disabled
               />
-
-              <InputAuth
-                name="password"
-                type="password"
-                value={login.password}
-                placeholder="Senha"
-                onChange={(input) =>
-                  setLogin({ ...login, password: input.target.value })
-                }
-                onSubmit={handleSubmit}
-                // error,
-                // disabled
-              />
-            </div>
-
-            <div className="flex justify-end">
-              <Link
-                to="/forgot-password"
-                className="text-end text-xs py-2 text-gray-400 transition hover:text-gray-600"
-              >
-                Esqueçeu a senha?
-              </Link>
             </div>
 
             {/* <Link to="/maps"> */}
@@ -90,7 +68,7 @@ export default function Login() {
               onClick={handleSubmit}
               className="border mt-10 p-2 w-full rounded-3xl bg-verde-texture3 transition hover:opacity-80 text-white font-bold"
             >
-              Acessar
+              Recuperar senha
             </button>
             {/* </Link> */}
           </form>

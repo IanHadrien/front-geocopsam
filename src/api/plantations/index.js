@@ -4,9 +4,25 @@ const baseAddress = 'http://localhost:3333'
 const controller = 'plantations'
 
 const PlantationsApi = {
-  GetAll: async (page=1, pageSize=15) => {
+  GetAll: async (page, pageSize) => {
     try {
       const responseData = await axios.get(`${baseAddress}/${controller}?page=${page}&pageSize=${pageSize}`,
+        {
+          withCredentials: true,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      return responseData
+    } catch (error) {
+      throw error.response.data
+    }
+  },
+  GetAllMapFilter: async (userId, cultivationId) => {
+    try {
+      const responseData = await axios.get(`${baseAddress}/${controller}?userId=${userId}&cultivationId=${cultivationId}`,
         {
           withCredentials: true,
           headers: {
